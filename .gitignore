@@ -1,0 +1,6 @@
+_originals/
+analog-circuits-odyssey.zip
+node_modules/
+__pycache__/
+*.pyc
+.pytest_cache/

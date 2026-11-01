@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>About and Credits | Analog Circuits Odyssey</title>
+  <meta name="description" content="About Analog Circuits Odyssey: an independent, unofficial student project by Karthik Shenoy for 25ECE211 Analog Electronic Circuits.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="alternate icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/physics.css">
+  <script>(function(){const t=localStorage.getItem('theme');if(t==='light')document.documentElement.setAttribute('data-theme','light');})();</script>
+</head>
+<body class="physics">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Top Navigation Bar -->
+  <nav class="nav" aria-label="Main Navigation">
+    <div class="wrap">
+      <div class="brand-group">
+        <a class="brand" href="index.html">
+          <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-24">
+            <rect x="2" y="16" width="24" height="8" rx="2" fill="#18181b" stroke="#ffffff" stroke-width="1.5"/>
+            <rect x="4" y="12" width="6" height="4" fill="#71717a"/>
+            <rect x="18" y="12" width="6" height="4" fill="#71717a"/>
+            <rect x="11" y="11" width="6" height="1.5" fill="#ffffff"/>
+            <rect x="11" y="4" width="6" height="7" rx="1" fill="#f59e0b"/>
+          </svg>
+          Analog Circuits Odyssey
+        </a>
+        <span class="nav-crumb">About</span>
+      </div>
+      <div class="nav-links">
+        <div class="nav-dropdown" aria-label="Units menu">
+          <button class="nav-dropdown-btn" aria-haspopup="true" aria-expanded="false">
+            Units <svg class="nav-dd-arrow" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <div class="nav-dropdown-menu" role="menu">
+            <a href="unit1.html" role="menuitem">Unit I: Diodes &amp; BJT</a>
+            <a href="unit2.html" role="menuitem">Unit II: 3D MOSFET</a>
+            <a href="unit3.html" role="menuitem">Unit III: Amplifiers</a>
+            <a href="unit4.html" role="menuitem">Unit IV: Diff &amp; Power</a>
+            <a href="unit5.html" role="menuitem">Unit V: Oscillators</a>
+          </div>
+        </div>
+        <a href="studio.html">Circuit Studio</a>
+        <a href="formulas.html">Formulas</a>
+        <a href="exam-solver.html" class="nav-cta">Exam Solver</a>
+      </div>
+      <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navDrawer">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main id="main-content" class="wrap" style="padding-top: var(--sp-12); padding-bottom: var(--sp-20); max-width: 800px;">
+    <h1 style="font-family: var(--font-serif); font-size: var(--text-4xl); margin-bottom: var(--sp-4);">About &amp; Project Credits</h1>
+    
+    <section class="card" style="padding: var(--sp-6); border-radius: 6px; margin-bottom: var(--sp-8);">
+      <h2 style="font-family: var(--font-serif); font-size: var(--text-2xl); margin-bottom: var(--sp-3);">About This Project</h2>
+      <p style="color: var(--c-text-2); line-height: 1.7; margin-bottom: var(--sp-3);">
+        <strong>Analog Circuits Odyssey</strong> is an independent, unofficial educational web platform created by <strong>Karthik Shenoy</strong> for students studying <strong>25ECE211 Analog Electronic Circuits</strong>.
+      </p>
+      <p style="color: var(--c-text-2); line-height: 1.7;">
+        The project combines WebGL 3D semiconductor physics chambers, virtual dual-trace oscilloscopes, a small-signal circuit analysis studio, a thorough searchable formula table, and worked step-by-step problem solvers.
+      </p>
+    </section>
+
+    <section class="card" style="padding: var(--sp-6); border-radius: 6px; margin-bottom: var(--sp-8);">
+      <h2 style="font-family: var(--font-serif); font-size: var(--text-2xl); margin-bottom: var(--sp-3);">Institutional Disclaimer</h2>
+      <p style="color: var(--c-text-2); line-height: 1.7; font-weight: 500;">
+        Independent student project by Karthik Shenoy. Strictly not affiliated with, endorsed by, or connected to NMAM Institute of Technology (NMAMIT) or Nitte (Deemed to be University).
+      </p>
+    </section>
+
+    <section class="card" style="padding: var(--sp-6); border-radius: 6px; margin-bottom: var(--sp-8);">
+      <h2 style="font-family: var(--font-serif); font-size: var(--text-2xl); margin-bottom: var(--sp-3);">Design Inspiration</h2>
+      <p style="color: var(--c-text-2); line-height: 1.7;">
+        The 3D semiconductor carrier concept was inspired by <a href="https://normansrule.github.io/transistor-odyssey/physics.html" target="_blank" rel="noopener noreferrer" style="color: var(--c-accent); text-decoration: underline;">Transistor Odyssey</a>, created by Norman's Rule. Transistor Odyssey is credited here as design inspiration only; all code and curricular implementations in this project were created independently.
+      </p>
+    </section>
+
+    <section class="card" style="padding: var(--sp-6); border-radius: 6px; margin-bottom: var(--sp-8);">
+      <h2 style="font-family: var(--font-serif); font-size: var(--text-2xl); margin-bottom: var(--sp-3);">Reference Texts</h2>
+      <ul style="color: var(--c-text-2); line-height: 1.8; padding-left: 20px;">
+        <li><strong>Robert L. Boylestad &amp; Louis Nashelsky</strong>, <em>Electronic Devices and Circuit Theory</em>, 11th Edition, Pearson.</li>
+        <li><strong>Donald A. Neamen</strong>, <em>Microelectronics: Circuit Analysis and Design</em>, 4th Edition, McGraw-Hill.</li>
+        <li><strong>Behzad Razavi</strong>, <em>Design of Analog CMOS Integrated Circuits</em>, 2nd Edition, McGraw-Hill.</li>
+      </ul>
+    </section>
+
+    <section class="card" style="padding: var(--sp-6); border-radius: 6px; margin-bottom: var(--sp-8);">
+      <h2 style="font-family: var(--font-serif); font-size: var(--text-2xl); margin-bottom: var(--sp-3);">Software &amp; Typography Licenses</h2>
+      <ul style="color: var(--c-text-2); line-height: 1.8; padding-left: 20px;">
+        <li><strong>Three.js</strong> (r128) &middot; MIT License &middot; <a href="vendor/LICENSE-THREE.txt" style="color:var(--c-accent); text-decoration:underline;">View License</a></li>
+        <li><strong>KaTeX</strong> (0.16.8) &middot; MIT License &middot; <a href="vendor/LICENSE-KATEX.txt" style="color:var(--c-accent); text-decoration:underline;">View License</a></li>
+        <li><strong>Inter</strong> &amp; <strong>Source Serif 4</strong> &middot; SIL Open Font License 1.1 &middot; <a href="fonts/OFL.txt" style="color:var(--c-accent); text-decoration:underline;">View License</a></li>
+      </ul>
+    </section>
+
+    <section class="card" style="padding: var(--sp-6); border-radius: 6px; margin-bottom: var(--sp-8);">
+      <h2 style="font-family: var(--font-serif); font-size: var(--text-2xl); margin-bottom: var(--sp-3);">Course Material &amp; Takedown Requests</h2>
+      <p style="color: var(--c-text-2); line-height: 1.7; margin-bottom: var(--sp-3);">
+        Course slides, syllabus pages, and exam problem formulations are shown strictly for study and reference purposes and remain the intellectual property of their respective owners.
+      </p>
+      <p style="color: var(--c-text-2); line-height: 1.7;">
+        To request removal of any slide, diagram, or problem statement, please write to: <a href="mailto:karthikshenoy17@gmail.com?subject=Takedown%20Request" style="color: var(--c-accent); text-decoration: underline;">karthikshenoy17@gmail.com</a>.
+      </p>
+    </section>
+
+    <section class="card" style="padding: var(--sp-6); border-radius: 6px;">
+      <h2 style="font-family: var(--font-serif); font-size: var(--text-2xl); margin-bottom: var(--sp-3);">Report an Error</h2>
+      <p style="color: var(--c-text-2); line-height: 1.7; margin-bottom: var(--sp-4);">
+        Found a typo, incorrect formula, or calculation discrepancy? Please report it:
+      </p>
+      <a href="mailto:karthikshenoy17@gmail.com?subject=Error%20report:%20About%20Page" class="btn primary">Send Error Report &rarr;</a>
+    </section>
+  </main>
+
+  <!-- Footer -->
+      <!-- Footer -->
+  <footer class="footer">
+    <div class="wrap">
+      <div>
+        <p class="footer-affiliation">
+          Independent student project by Karthik Shenoy. Strictly not affiliated with, endorsed by, or connected to NMAM Institute of Technology (NMAMIT) or Nitte (Deemed to be University).
+        </p>
+        <p class="footer-meta-line">
+          Contact: <a href="mailto:karthikshenoy17@gmail.com" class="link-underline">karthikshenoy17@gmail.com</a> &middot; Last updated: November 2026 &middot; <a href="about.html" class="link-underline">About &amp; credits</a> &middot; <a href="mailto:karthikshenoy17@gmail.com?subject=Error%20report:about.html" class="link-underline">Report an error</a> &middot; <span class="theme-toggle-wrap">Theme: <button type="button" id="themeToggleBtn" class="theme-toggle-btn" aria-label="Toggle dark or light theme">Dark</button></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

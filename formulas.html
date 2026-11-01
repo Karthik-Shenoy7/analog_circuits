@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Formulas Reference | Analog Circuits Odyssey</title>
+  <meta name="description" content="Complete formula reference table for 25ECE211 Analog Electronic Circuits. Filterable search across diode, BJT, MOSFET, amplifier, feedback, and oscillator equations.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="alternate icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
+  <script defer src="vendor/katex/katex.min.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/physics.css">
+  <meta property="og:title" content="Analog Circuits Odyssey | 25ECE211">
+  <meta property="og:description" content="Laboratory instruments, 3D device physics, and worked exam problem solver for 25ECE211.">
+  <meta property="og:type" content="website">
+  
+  <meta name="twitter:card" content="summary">
+  <script>(function(){const t=localStorage.getItem('theme');if(t==='light')document.documentElement.setAttribute('data-theme','light');})();</script>
+</head>
+<body class="physics">
+  <noscript>
+    <div class="noscript-warning">
+      JavaScript is disabled in your browser. Oscilloscopes, 3D device chambers, and calculators require JavaScript to run.
+    </div>
+  </noscript>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <!-- Top Navigation Bar -->
+  <nav class="nav" aria-label="Main Navigation">
+    <div class="wrap">
+      <div class="brand-group">
+        <a class="brand" href="index.html">
+          <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-24">
+            <rect x="2" y="16" width="24" height="8" rx="2" fill="#18181b" stroke="#ffffff" stroke-width="1.5"/>
+            <rect x="4" y="12" width="6" height="4" fill="#71717a"/>
+            <rect x="18" y="12" width="6" height="4" fill="#71717a"/>
+            <rect x="11" y="11" width="6" height="1.5" fill="#ffffff"/>
+            <rect x="11" y="4" width="6" height="7" rx="1" fill="#f59e0b"/>
+          </svg>
+          Analog Circuits Odyssey
+        </a>
+        <span class="nav-crumb">25ECE211</span>
+      </div>
+      <div class="nav-links">
+        <div class="nav-dropdown" aria-label="Units menu">
+          <button class="nav-dropdown-btn" aria-haspopup="true" aria-expanded="false">
+            Units <svg class="nav-dd-arrow" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <div class="nav-dropdown-menu" role="menu">
+            <a href="unit1.html" role="menuitem">Unit I: Diodes & BJT</a>
+            <a href="unit2.html" role="menuitem">Unit II: 3D MOSFET</a>
+            <a href="unit3.html" role="menuitem">Unit III: Amplifiers</a>
+            <a href="unit4.html" role="menuitem">Unit IV: Diff & Power</a>
+            <a href="unit5.html" role="menuitem">Unit V: Oscillators</a>
+          </div>
+        </div>
+        <a href="studio.html">Circuit Studio</a>
+        <a href="formulas.html" class="active">Formulas</a>
+        <a href="exam-solver.html" class="nav-cta">Exam Solver</a>
+      </div>
+      <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navDrawer">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile nav drawer -->
+  <div class="nav-drawer" id="navDrawer" role="dialog" aria-label="Navigation menu" aria-modal="true">
+    <p class="nav-drawer-section">Units</p>
+    <a href="unit1.html">Unit I: Diodes & BJT</a>
+    <a href="unit2.html">Unit II: 3D MOSFET</a>
+    <a href="unit3.html">Unit III: Amplifiers</a>
+    <a href="unit4.html">Unit IV: Diff & Power</a>
+    <a href="unit5.html">Unit V: Oscillators</a>
+    <p class="nav-drawer-section">Tools</p>
+    <a href="studio.html">Circuit Studio</a>
+    <a href="formulas.html" class="active">Formulas Reference</a>
+    <a href="exam-solver.html">Worked Problem Solver</a>
+  </div>
+
+  <main id="main-content" class="wrap py-tool-page">
+  <h1 class="sr-only">Formulas and Circuits Reference</h1>
+<section class="lab-sec" id="formulas-section">
+        <div class="lab-header">
+          <div>
+            <h2 class="section-title">Analog Circuits Formula Reference</h2>
+            <p class="lab-subtitle">
+              Searchable comparison of Z<sub>i</sub>, Z<sub>o</sub>, A<sub>v</sub>, A<sub>i</sub>
+              across BJT, MOSFET, Current Mirror &amp; Differential Stages · Slides 65, 154
+            </p>
+          </div>
+        </div>
+
+        <div style="margin-bottom:18px;">
+          <input id="formulaSearchInput" type="search"
+                 placeholder="Search by circuit, parameter or slide reference"
+                 
+          />
+        </div>
+
+        <div id="formulasTableContainer"></div>
+      </section>
+  </main>
+
+  <!-- Footer -->
+      <!-- Footer -->
+  <footer class="footer">
+    <div class="wrap">
+      <div>
+        <p class="footer-affiliation">
+          Independent student project by Karthik Shenoy. Strictly not affiliated with, endorsed by, or connected to NMAM Institute of Technology (NMAMIT) or Nitte (Deemed to be University).
+        </p>
+        <p class="footer-course-notice">
+          Course material is shown for study purposes only and belongs to its respective owners. To request removal, write to <a href="mailto:karthikshenoy17@gmail.com" class="link-underline">karthikshenoy17@gmail.com</a>.
+        </p>
+        <p class="footer-meta-line">
+          Contact: <a href="mailto:karthikshenoy17@gmail.com" class="link-underline">karthikshenoy17@gmail.com</a> &middot; Last updated: November 2026 &middot; <a href="about.html" class="link-underline">About &amp; credits</a> &middot; <a href="mailto:karthikshenoy17@gmail.com?subject=Error%20report:formulas.html" class="link-underline">Report an error</a> &middot; <span class="theme-toggle-wrap">Theme: <button type="button" id="themeToggleBtn" class="theme-toggle-btn" aria-label="Toggle dark or light theme">Dark</button></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/circuits-data.js"></script>
+  <script src="js/circuit-studio.js"></script>
+  <script src="js/formulas-page.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

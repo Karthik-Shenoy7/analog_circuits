@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Unit V: Feedback and Oscillators | Analog Circuits Odyssey</title>
+  <meta name="description" content="Curriculum page for 25ECE211 Unit V: Feedback Amplifiers & Oscillators: detailed theory, mathematical derivations, side-by-side interactive schematics alongside course PDF lecture slides, and step-by-step exam numerical problem solvers.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="alternate icon" type="image/png" href="favicon.png">
+
+  <!-- KaTeX CSS & JS -->
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
+  <script defer src="vendor/katex/katex.min.js"></script>
+  
+
+  <!-- Custom Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/physics.css">
+
+  <style>
+    /* Unit Page Specific Layouts */
+    .unit-hero {
+      padding: var(--sp-12) 0 var(--sp-8);
+      border-bottom: 1px solid var(--c-border);
+      background: var(--c-base);
+    }
+    .unit-toc-strip {
+      display: flex;
+      gap: var(--sp-2);
+      flex-wrap: wrap;
+      margin-top: var(--sp-6);
+    }
+    .unit-toc-strip a {
+      font-size: var(--text-xs);
+      font-weight: 600;
+      padding: var(--sp-2) var(--sp-3);
+      border-radius: var(--r-sm);
+      border: 1px solid var(--c-border);
+      background: var(--c-surface);
+      color: var(--c-text-2);
+      transition: all var(--ease);
+    }
+    .unit-toc-strip a:hover {
+      border-color: var(--c-border-mid);
+      color: var(--c-text);
+      background: var(--c-surface-2);
+    }
+    .theory-card {
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-md);
+      padding: var(--sp-6);
+      margin-bottom: var(--sp-6);
+    }
+    .theory-card h3 {
+      font-size: var(--text-xl);
+      color: var(--c-text);
+      margin-bottom: var(--sp-3);
+      border-bottom: 1px solid var(--c-border);
+      padding-bottom: var(--sp-2);
+    }
+    .side-by-side-card {
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-md);
+      overflow: hidden;
+      margin-bottom: var(--sp-8);
+    }
+    .side-by-side-header {
+      padding: var(--sp-4) var(--sp-6);
+      border-bottom: 1px solid var(--c-border);
+      background: var(--c-surface-2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--sp-2);
+    }
+    .side-by-side-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1px;
+      background: var(--c-border);
+    }
+    @media (min-width: 900px) {
+      .side-by-side-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    .pane-half {
+      background: var(--c-surface);
+      padding: var(--sp-5);
+      display: flex;
+      flex-direction: column;
+    }
+    .pane-title {
+      font-size: var(--text-xs);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--c-text-3);
+      margin-bottom: var(--sp-3);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .slide-photo-img {
+      width: 100%;
+      height: auto;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--c-border);
+      cursor: zoom-in;
+      transition: opacity var(--ease);
+      background: var(--c-surface);
+    }
+    .slide-photo-img:hover {
+      opacity: 0.95;
+    }
+    .question-block {
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-md);
+      padding: var(--sp-6);
+      margin-bottom: var(--sp-6);
+    }
+    .question-title-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: var(--sp-3);
+    }
+    .step-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+      margin-top: var(--sp-4);
+    }
+    .step-item {
+      background: var(--c-base);
+      border: 1px solid var(--c-border);
+      border-left: 3px solid var(--c-accent);
+      border-radius: var(--r-sm);
+      padding: var(--sp-3) var(--sp-4);
+    }
+  </style>
+  <meta property="og:title" content="Analog Circuits Odyssey | 25ECE211">
+  <meta property="og:description" content="Laboratory instruments, 3D device physics, and worked exam problem solver for 25ECE211.">
+  <meta property="og:type" content="website">
+  
+  <meta name="twitter:card" content="summary">
+  <script>(function(){const t=localStorage.getItem('theme');if(t==='light')document.documentElement.setAttribute('data-theme','light');})();</script>
+</head>
+<body class="physics">
+<span id="main-content"></span>
+  <noscript>
+    <div class="noscript-warning">
+      JavaScript is disabled in your browser. Oscilloscopes, 3D device chambers, and calculators require JavaScript to run.
+    </div>
+  </noscript>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  
+  <!-- Top Navigation -->
+    <!-- Top Navigation Bar -->
+    <!-- Top Navigation Bar -->
+  <nav class="nav" aria-label="Main Navigation">
+    <div class="wrap">
+      <div class="brand-group">
+        <a class="brand" href="index.html">
+          <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-24">
+            <rect x="2" y="16" width="24" height="8" rx="2" fill="#18181b" stroke="#ffffff" stroke-width="1.5"/>
+            <rect x="4" y="12" width="6" height="4" fill="#71717a"/>
+            <rect x="18" y="12" width="6" height="4" fill="#71717a"/>
+            <rect x="11" y="11" width="6" height="1.5" fill="#ffffff"/>
+            <rect x="11" y="4" width="6" height="7" rx="1" fill="#f59e0b"/>
+          </svg>
+          Analog Circuits Odyssey
+        </a>
+        <span class="nav-crumb">25ECE211</span>
+      </div>
+      <div class="nav-links">
+        <div class="nav-dropdown" aria-label="Units menu">
+          <button class="nav-dropdown-btn" aria-haspopup="true" aria-expanded="false">
+            Units <svg class="nav-dd-arrow" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <div class="nav-dropdown-menu" role="menu">
+            <a href="unit1.html" role="menuitem">Unit I: Diodes & BJT</a>
+            <a href="unit2.html" role="menuitem">Unit II: 3D MOSFET</a>
+            <a href="unit3.html" role="menuitem">Unit III: Amplifiers</a>
+            <a href="unit4.html" role="menuitem">Unit IV: Diff & Power</a>
+            <a href="unit5.html" role="menuitem" class="active">Unit V: Oscillators</a>
+          </div>
+        </div>
+        <a href="studio.html">Circuit Studio</a>
+        <a href="formulas.html">Formulas</a>
+        <a href="exam-solver.html" class="nav-cta">Exam Solver</a>
+      </div>
+      <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navDrawer">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile nav drawer -->
+  <div class="nav-drawer" id="navDrawer" role="dialog" aria-label="Navigation menu" aria-modal="true">
+    <p class="nav-drawer-section">Units</p>
+    <a href="unit1.html">Unit I: Diodes & BJT</a>
+    <a href="unit2.html">Unit II: 3D MOSFET</a>
+    <a href="unit3.html">Unit III: Amplifiers</a>
+    <a href="unit4.html">Unit IV: Diff & Power</a>
+    <a href="unit5.html" class="active">Unit V: Oscillators</a>
+    <p class="nav-drawer-section">Tools</p>
+    <a href="studio.html">Circuit Studio</a>
+    <a href="formulas.html">Formulas Reference</a>
+    <a href="exam-solver.html">Worked Problem Solver</a>
+  </div>
+
+  <header class="unit-hero">
+    <div class="wrap">
+      <span class="eyebrow">Unit V &middot; Negative Feedback Topologies, Stability & Barkhausen Oscillators</span>
+      <h1 class="unit-hero-title">Unit V: Feedback Amplifiers & Oscillators</h1>
+      <p class="lead unit-hero-lead">
+        Study of the four negative feedback topologies, gain desensitization, bandwidth extension, Barkhausen oscillation criteria, RC phase shift, Wien bridge, Hartley, and Colpitts oscillators.
+      </p>
+
+      <nav class="unit-toc-strip" aria-label="Page Sections">
+        <a href="#interactive-labs" class="text-accent-bold">&sect; Instruments</a>
+        <a href="#theory">&sect; 1. Theory &amp; Concepts</a>
+        <a href="#formulas">&sect; 2. Mathematical Formulas</a>
+        <a href="#circuits-comparison">&sect; 3. Circuits: Built Schematic vs. PDF Slide Photo</a>
+        <a href="#exam-questions">&sect; 4. Exam Numerical Questions &amp; Solvers</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap py-section">
+
+    <!-- Section 1: Theory -->
+    
+      <!-- Laboratory Simulations -->
+      <section id="interactive-labs" class="mb-12">
+        <h2 class="section-title-bordered">Laboratory Instruments</h2>
+<section class="lab-sec" id="lab-feedback">
+        <header class="lab-head">
+          <span class="lab-num">09</span>
+          <div>
+            <h3>Feedback Topologies &amp; Gain Stabilization</h3>
+            <p class="lead">Examine how negative feedback desensitizes gain against temperature and manufacturing variations, tailors input/output impedance, and expands closed-loop bandwidth.</p>
+          </div>
+        </header>
+
+        <div class="lab-grid">
+          <aside class="card lab-ctl">
+            <div class="ctl-group">
+              <label for="fbTopologySelect" class="ctl-header">Feedback Topology</label>
+              <select id="fbTopologySelect" class="btn-select">
+                <option value="voltage-series">Voltage-Series (Series-Shunt: Zin ↑, Zout ↓)</option>
+                <option value="voltage-shunt">Voltage-Shunt (Shunt-Shunt: Zin ↓, Zout ↓)</option>
+                <option value="current-series">Current-Series (Series-Series: Zin ↑, Zout ↑)</option>
+                <option value="current-shunt">Current-Shunt (Shunt-Series: Zin ↓, Zout ↑)</option>
+              </select>
+            </div>
+
+            <div class="ctl-group">
+              <div class="ctl-header">
+                <label for="fbBeta" class="ctl-header">Feedback Fraction (β)</label>
+                <span class="val" id="fbBetaVal">0.040</span>
+              </div>
+              <input type="range" id="fbBeta" min="0.005" max="0.1" step="0.005" value="0.04">
+            </div>
+
+            <div class="metrics-row">
+              <div class="metric" aria-live="polite">
+                <div class="lbl">Open-Loop Gain A</div>
+                <div class="val">1000 V/V (60 dB)</div>
+              </div>
+              <div class="metric" aria-live="polite">
+                <div class="lbl">Closed-Loop Gain Af</div>
+                <div class="val" id="fbClosedGainVal">24.39 V/V</div>
+              </div>
+              <div class="metric" aria-live="polite">
+                <div class="lbl">Desensitivity (1 + Aβ)</div>
+                <div class="val" id="fbDesensVal">41.0</div>
+              </div>
+              <div class="metric" aria-live="polite">
+                <div class="lbl">Closed Bandwidth</div>
+                <div class="val" id="fbBwVal">0.82 MHz</div>
+              </div>
+              <div class="metric" aria-live="polite">
+                <div class="lbl">Input Impedance Zin,f</div>
+                <div class="val" id="fbZinVal">410 kΩ</div>
+              </div>
+              <div class="metric" aria-live="polite">
+                <div class="lbl">Output Impedance Zout,f</div>
+                <div class="val" id="fbZoutVal">122 Ω</div>
+              </div>
+            </div>
+
+            <div class="metric" style="margin-top:6px;">
+              <div class="lbl">Classification</div>
+              <div class="val" id="fbTypeName" style="font-size:0.82rem; color:var(--accent-cyan);">Voltage-Series ,  Voltage Amplifier</div>
+            </div>
+          </aside>
+
+          <div class="lab-view">
+            <div class="schematic-box" style="height:380px; flex-direction:column; justify-content:center; gap:20px;">
+              <svg viewBox="0 0 420 220" width="100%" height="220" xmlns="http://www.w3.org/2000/svg">
+                <!-- Summing Node -->
+                <circle cx="70" cy="80" r="14" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+                <text x="70" y="85" fill="#38bdf8" font-size="16" font-family="monospace" text-anchor="middle">Σ</text>
+                <line x1="20" y1="80" x2="56" y2="80" stroke="#38bdf8" stroke-width="2"/>
+                <text x="35" y="70" fill="#38bdf8" font-size="12" font-family="monospace">Vin</text>
+
+                <!-- Forward Amplifier Block A -->
+                <line x1="84" y1="80" x2="140" y2="80" stroke="#94a3b8" stroke-width="2"/>
+                <rect x="140" y="55" width="110" height="50" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+                <text x="195" y="86" fill="#10b981" font-size="16" font-weight="bold" font-family="monospace" text-anchor="middle">A (Forward)</text>
+
+                <!-- Output Line -->
+                <line x1="250" y1="80" x2="380" y2="80" stroke="#38bdf8" stroke-width="2"/>
+                <circle cx="320" cy="80" r="4" fill="#38bdf8"/>
+                <text x="370" y="72" fill="#38bdf8" font-size="12" font-family="monospace">Vout</text>
+
+                <!-- Feedback Network Beta -->
+                <line x1="320" y1="80" x2="320" y2="160" stroke="#f59e0b" stroke-width="2"/>
+                <line x1="320" y1="160" x2="250" y2="160" stroke="#f59e0b" stroke-width="2"/>
+                <rect x="140" y="135" width="110" height="50" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+                <text x="195" y="166" fill="#f59e0b" font-size="16" font-weight="bold" font-family="monospace" text-anchor="middle">β (Feedback)</text>
+
+                <!-- Feedback return to summing junction -->
+                <line x1="140" y1="160" x2="70" y2="160" stroke="#f59e0b" stroke-width="2"/>
+                <line x1="70" y1="160" x2="70" y2="94" stroke="#f59e0b" stroke-width="2"/>
+                <text x="78" y="112" fill="#f43f5e" font-size="14" font-weight="bold" font-family="monospace">-</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="lab-experiments-grid">
+          <div class="card card-padded">
+            <h4 class="heading-serif-base">Try These Experiments</h4>
+            <p>Select different feedback topologies to see how voltage vs. current sensing and series vs. shunt mixing selectively multiplies or divides <span class="eq-inline" data-tex="Z_{in}"></span> and <span class="eq-inline" data-tex="Z_{out}"></span> by <span class="eq-inline" data-tex="(1+A\beta)"></span>.</p>
+          </div>
+          <div class="card card-padded">
+            <h4 class="heading-serif-base">Governing Equations</h4>
+            <div class="eq" data-tex="A_f = \frac{A}{1 + A\beta}, \quad \frac{dA_f}{A_f} = \frac{1}{1 + A\beta} \frac{dA}{A}"></div>
+            <div class="eq" data-tex="BW_f = BW \times (1 + A\beta), \quad D_f = \frac{D}{1 + A\beta}"></div>
+            <small>When <span class="eq-inline" data-tex="A\beta \gg 1"></span>, <span class="eq-inline" data-tex="A_f \approx 1/\beta"></span>, depending solely on stable passive resistors.</small>
+            
+        <details class="details-derivation">
+          <summary class="summary-derivation">Derivation &amp; Engineering Context</summary>
+          <div class="details-inner-content">
+            <p>Every operational amplifier circuit uses negative feedback. Without it, an op-amp with open-loop gain 10<sup>5</sup> would saturate instantly with a <span class="eq-inline" data-tex="15\mu\text{V}"></span> input offset.</p>
+          </div>
+        </details>
+          </div>
+        </div>
+      <div style="margin-top:12px; text-align:right;"><a href="mailto:karthikshenoy17@gmail.com?subject=Error%20report:%20Unit%205%20(lab-feedback)" class="link-underline" style="font-size:var(--text-xs); color:var(--c-text-3);">Report an error in this lab</a></div>
+      </section>
+<section class="lab-sec" id="lab-oscillators">
+        <header class="lab-head">
+          <span class="lab-num">10</span>
+          <div>
+            <h3>Oscillator Studio &amp; The Barkhausen Criterion</h3>
+            <p class="lead">Simulate RC Phase Shift, Wien Bridge, Tuned LC, and Quartz Crystal oscillators. Test the Barkhausen criterion by varying loop gain <span class="eq-inline" data-tex="|A\beta|"></span> to observe decayed damping (<span class="eq-inline" data-tex="<1"></span>), stable sinusoidal resonance (<span class="eq-inline" data-tex="=1"></span>), and nonlinear clipping saturation (<span class="eq-inline" data-tex=">1"></span>).</p>
+          </div>
+        </header>
+
+        <div class="lab-grid">
+          <aside class="card lab-ctl">
+            <div class="ctl-group">
+              <label class="ctl-header">Oscillator Circuit</label>
+              <div class="btn-group">
+                <button type="button" class="btn-sm active" data-osc-type="rc-phase">RC Phase Shift</button>
+                <button type="button" class="btn-sm" data-osc-type="wien">Wien Bridge</button>
+                <button type="button" class="btn-sm" data-osc-type="tuned-lc">Tuned LC</button>
+                <button type="button" class="btn-sm" data-osc-type="crystal">Crystal</button>
+              </div>
+            </div>
+
+            <div class="ctl-group">
+              <div class="ctl-header">
+                <label for="oscLoopGain" class="ctl-header">Loop Gain Magnitude (|Aβ|)</label>
+                <span class="val" id="oscLoopGainVal">1.00</span>
+              </div>
+              <input type="range" id="oscLoopGain" min="0.80" max="1.30" step="0.01" value="1.00">
+            </div>
+
+            <div class="ctl-group">
+              <div class="ctl-header">
+                <label for="oscR" class="ctl-header">Timing Resistor (R)</label>
+                <span class="val" id="oscRVal">10.0 kΩ</span>
+              </div>
+              <input type="range" id="oscR" min="1.0" max="50.0" step="1.0" value="10.0">
+            </div>
+
+            <div class="ctl-group">
+              <div class="ctl-header">
+                <label for="oscC" class="ctl-header">Timing Capacitor (C)</label>
+                <span class="val" id="oscCVal">10.0 nF</span>
+              </div>
+              <input type="range" id="oscC" min="1.0" max="50.0" step="1.0" value="10.0">
+            </div>
+
+            <div class="metrics-row">
+              <div class="metric" aria-live="polite">
+                <div class="lbl">Oscillation Frequency</div>
+                <div class="val" id="oscFreqVal">649.7 Hz</div>
+              </div>
+              <div class="metric" aria-live="polite">
+                <div class="lbl">Min Gain Requirement</div>
+                <div class="val" id="oscMinGainVal">|A| ≥ 29</div>
+              </div>
+            </div>
+
+            <div class="metric" style="margin-top:6px;">
+              <div class="lbl">Barkhausen Condition Status</div>
+              <div class="val"><span class="status-badge sat" id="oscBarkhausenStatus">Barkhausen Met: |Aβ| = 1.00</span></div>
+            </div>
+          </aside>
+
+          <div class="lab-view">
+            <div class="scope-screen">
+              <div class="scope-legend">
+                <span class="scope-ch1" id="oscPhaseDesc">3 RC ladders (60° each = 180°) + CE Inversion (180°) = 360° Total Phase Shift</span>
+              </div>
+              <canvas id="oscillatorCanvas" aria-label="Oscilloscope trace of sustained oscillation waveform with Barkhausen loop gain"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div class="lab-experiments-grid">
+          <div class="card card-padded">
+            <h4 class="heading-serif-base">Guided Experiments</h4>
+            <ol class="experiments-list">
+              <li>Select <strong>RC Phase-Shift</strong>, set <strong>Loop Gain (|A&beta;|)</strong> to <em>1.05</em>, <strong>R</strong> to <em>10.0 k&Omega;</em>, and <strong>C</strong> to <em>10.0 nF</em>. Watch Oscillation Frequency display <em>649.7 Hz</em> and Minimum Gain display <em>|A| &ge; 29</em>. Why: Three cascaded RC sections each introduce 60 degrees of phase shift at resonant frequency <span class="eq-inline" data-tex="f_0 = \frac{1}{2\pi R C \sqrt{6}}"></span>.</li>
+              <li>Set <strong>Loop Gain (|A&beta;|)</strong> to <em>0.80</em>. Watch oscillations decay to zero. Why: Sustained oscillation requires the Barkhausen magnitude criterion <span class="eq-inline" data-tex="|A\beta| \ge 1"></span> to be satisfied.</li>
+            </ol>
+          </div>
+        </div>
+
+          <div class="pl-card pl-real">
+            <h4>Why It Matters</h4>
+            <p>Quartz crystal oscillators achieve Quality factors Q &gt; 100,000 due to piezoelectric resonance. They drive master clocks in microprocessors, cell phones, and GPS satellites with drift under <span class="eq-inline" data-tex="1\text{ ppm}"></span>.</p>
+          </div>
+        </div>
+      <div style="margin-top:12px; text-align:right;"><a href="mailto:karthikshenoy17@gmail.com?subject=Error%20report:%20Unit%205%20(lab-oscillators)" class="link-underline" style="font-size:var(--text-xs); color:var(--c-text-3);">Report an error in this lab</a></div>
+      </section>
+      </section>
+<section id="theory" class="mb-12">
+      <div class="lab-head">
+        <div class="lab-badge">Section 1 &middot; Theory &amp; Physics Models</div>
+        <h2>Conceptual Theory &amp; Device Physics</h2>
+        <p class="lab-desc">Detailed physical principles, band diagrams, operating mechanisms, and small-signal linear approximations for Unit 5.</p>
+      </div>
+
+      
+        <article class="theory-card">
+          <h3>1. The Four Feedback Topologies</h3>
+          <div>
+          <p>Negative feedback samples a portion of the output signal and feeds it back out of phase to the input. The four classifications depend on sampling (voltage or current) and mixing (series or shunt):</p>
+          <ul class="theory-list">
+            <li><strong>Voltage-Series (Series-Shunt):</strong> Samples voltage (<span class="eq-inline" data-tex="V_o"></span>), mixes voltage in series (<span class="eq-inline" data-tex="V_f"></span>). Increases input resistance (<span class="eq-inline" data-tex="Z_{if} = Z_i(1+A\beta)"></span>), decreases output resistance (<span class="eq-inline" data-tex="Z_{of} = Z_o/(1+A\beta)"></span>). Ideal voltage amplifier.</li>
+            <li><strong>Voltage-Shunt (Shunt-Shunt):</strong> Samples voltage, mixes current in shunt. Decreases both <span class="eq-inline" data-tex="Z_i"></span> and <span class="eq-inline" data-tex="Z_o"></span>. Transresistance amplifier.</li>
+            <li><strong>Current-Series (Series-Series):</strong> Samples current, mixes voltage in series. Increases both <span class="eq-inline" data-tex="Z_i"></span> and <span class="eq-inline" data-tex="Z_o"></span>. Transconductance amplifier.</li>
+            <li><strong>Current-Shunt (Shunt-Series):</strong> Samples current, mixes current in shunt. Decreases <span class="eq-inline" data-tex="Z_i"></span>, increases <span class="eq-inline" data-tex="Z_o"></span>. Current amplifier.</li>
+          </ul>
+        </div>
+        </article>
+      
+        <article class="theory-card">
+          <h3>2. The Barkhausen Criterion for Sinusoidal Oscillation</h3>
+          <div>
+          <p>An oscillator converts DC power into a periodic AC waveform without an external AC input signal. Under positive feedback, sustained sinusoidal oscillations require:</p>
+          <div style="background:var(--c-surface); border:1px solid var(--c-border); padding:var(--sp-4); border-radius:var(--r-md); margin-top:12px;">
+            <ol style="padding-left:20px; color:var(--c-text-2); line-height:1.8;">
+              <li><strong>Magnitude Condition:</strong> Loop gain magnitude must equal unity: <span class="eq-inline" data-tex="|A\beta| = 1"></span> (in practice <span class="eq-inline" data-tex="\ge 1"></span> at start-up).</li>
+              <li><strong>Phase Condition:</strong> Total phase shift around the feedback loop must equal <span class="eq-inline" data-tex="0^\circ"></span> or 360&deg; (integer multiple of <span class="eq-inline" data-tex="2\pi"></span>).</li>
+            </ol>
+          </div>
+        </div>
+        </article>
+      
+        <article class="theory-card">
+          <h3>3. RC & LC Resonant Frequency Oscillators</h3>
+          <div>
+          <p>Audio frequency (AF) oscillators use RC networks (Phase-Shift and Wien-Bridge), while Radio Frequency (RF) oscillators use LC tuned tank circuits (Hartley and Colpitts):</p>
+          <ul class="theory-list">
+            <li><strong>RC Phase-Shift:</strong> Three cascaded RC sections each introduce <span class="eq-inline" data-tex="60^circ"></span> phase shift (<span class="eq-inline" data-tex="180^circ"></span> total), complementing the inverting amplifier's <span class="eq-inline" data-tex="180^circ"></span>. <span class="eq-inline" data-tex="f_0 = \frac{1}{2\pi R C \sqrt{6}}"></span>, requiring <span class="eq-inline" data-tex="|A_v| \ge 29"></span>.</li>
+            <li><strong>Wien Bridge:</strong> Lead-lag network introduces <span class="eq-inline" data-tex="0^circ"></span> phase shift at resonance: <span class="eq-inline" data-tex="f_0 = \frac{1}{2\pi R C}"></span>, requiring <span class="eq-inline" data-tex="|A_v| \ge 3"></span>.</li>
+            <li><strong>Colpitts Oscillator:</strong> Uses tapped capacitors (<span class="eq-inline" data-tex="C_1, C_2"></span>) with inductor <span class="eq-inline" data-tex="L"></span>: <span class="eq-inline" data-tex="f_0 = \frac{1}{2\pi \sqrt{L C_{eq}}}"></span> where <span class="eq-inline" data-tex="C_{eq} = \frac{C_1 C_2}{C_1 + C_2}"></span>.</li>
+          </ul>
+        </div>
+        </article>
+      
+    </section>
+
+    <!-- Section 2: Formulas -->
+    <section id="formulas" class="mb-12">
+      <div class="lab-head">
+        <div class="lab-badge">Section 2 &middot; Formula Reference</div>
+        <h2>Unit 5 Formulas &amp; Analytical Equations</h2>
+        <p class="lab-desc">Core mathematical formulations, DC biasing conditions, small-signal models, and gain equations derived in the syllabus.</p>
+      </div>
+
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--sp-4);">
+        
+          <div class="mini-card">
+            <div class="mini-card-title">Closed-Loop Feedback Gain</div>
+            <div class="eq-box code-box">
+              <div class="eq" data-tex="A_f = \frac{A}{1 + A\beta}"><div class="eq" data-tex="A_f = \frac{A}{1 + A\beta}"></div></div>
+            </div>
+            <div class="text-muted-xs">Fundamental gain equation under negative feedback.</div>
+          </div>
+        
+          <div class="mini-card">
+            <div class="mini-card-title">Gain Desensitization Factor</div>
+            <div class="eq-box code-box">
+              <div class="eq" data-tex="D = 1 + A\beta, \quad \frac{dA_f}{A_f} = \frac{1}{1 + A\beta} \frac{dA}{A}"><div class="eq" data-tex="D = 1 + A\beta, \quad \frac{dA_f}{A_f} = \frac{1}{1 + A\beta} \frac{dA}{A}"></div></div>
+            </div>
+            <div class="text-muted-xs">Fractional stabilization against component variations.</div>
+          </div>
+        
+          <div class="mini-card">
+            <div class="mini-card-title">Bandwidth Extension</div>
+            <div class="eq-box code-box">
+              <div class="eq" data-tex="f_{Hf} = f_H (1 + A\beta), \quad f_{Lf} = \frac{f_L}{1 + A\beta}"><div class="eq" data-tex="f_{Hf} = f_H (1 + A\beta), \quad f_{Lf} = \frac{f_L}{1 + A\beta}"></div></div>
+            </div>
+            <div class="text-muted-xs">Gain-bandwidth product remains constant.</div>
+          </div>
+        
+          <div class="mini-card">
+            <div class="mini-card-title">RC Phase Shift Frequency</div>
+            <div class="eq-box code-box">
+              <div class="eq" data-tex="f_0 = \frac{1}{2\pi R C \sqrt{6}} \quad (\text{with } |A| \ge 29)"><div class="eq" data-tex="f_0 = \frac{1}{2\pi R C \sqrt{6}} \quad (\text{with } |A| \ge 29)"></div></div>
+            </div>
+            <div class="text-muted-xs">Resonant frequency of 3-stage RC ladder network.</div>
+          </div>
+        
+          <div class="mini-card">
+            <div class="mini-card-title">Wien Bridge Frequency</div>
+            <div class="eq-box code-box">
+              <div class="eq" data-tex="f_0 = \frac{1}{2\pi R C} \quad (\text{with } |A| \ge 3)"><div class="eq" data-tex="f_0 = \frac{1}{2\pi R C} \quad (\text{with } |A| \ge 3)"></div></div>
+            </div>
+            <div class="text-muted-xs">Resonant frequency of lead-lag Wien network.</div>
+          </div>
+        
+          <div class="mini-card">
+            <div class="mini-card-title">Colpitts Oscillator Frequency</div>
+            <div class="eq-box code-box">
+              <div class="eq" data-tex="f_0 = \frac{1}{2\pi \sqrt{L \frac{C_1 C_2}{C_1+C_2}}}"><div class="eq" data-tex="f_0 = \frac{1}{2\pi \sqrt{L \frac{C_1 C_2}{C_1+C_2}}}"></div></div>
+            </div>
+            <div class="text-muted-xs">Tuned LC frequency with split capacitor divider.</div>
+          </div>
+        
+      </div>
+    </section>
+
+    <!-- Section 3: Circuits & Side-by-Side PDF Photo -->
+    <section id="circuits-comparison" class="mb-12">
+      <div class="lab-head">
+        <div class="lab-badge">Section 3 &middot; Side-by-Side Schematic Verification</div>
+        <h2>Built Circuit Schematic alongside Course PDF Slide Photo</h2>
+        <p class="lab-desc">Compare the live vector schematics against the exact circuit diagrams and figures published in the official 25ECE211 lecture slides and syllabus PDF.</p>
+      </div>
+
+      
+        <div class="side-by-side-card">
+          <div class="side-by-side-header">
+            <div>
+              <strong class="text-body-base">RC Phase-Shift Oscillator Network</strong>
+              <div class="text-xs-muted-top">Ladder RC network introducing 180° phase shift coupled to an inverting BJT/Op-Amp amplifier.</div>
+            </div>
+            <div class="flex-center-gap">
+              <span class="slide-tag">Syllabus Page 14 & 15</span>
+              <a href="studio.html" class="btn sm secondary" onclick="if(window.launchCircuit) window.launchCircuit('unit5-feedback');">Explore in Studio &rarr;</a>
+            </div>
+          </div>
+
+          <div class="side-by-side-grid">
+            <!-- Left: Built Circuit Schematic -->
+            <div class="pane-half">
+              <div class="pane-title">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M7 12h10"/><path d="M12 7v10"/></svg>
+                Built Schematic
+              </div>
+              <div id="builtSchematicContainer_0" class="schematic-preview-box">
+                <!-- Rendered dynamically or fallback SVG -->
+              </div>
+              <div class="mono-caption">
+                <strong>Key Equation:</strong> <span class="eq-inline" data-tex="f_0 = \frac{1}{2\pi R C \sqrt{6}}, \quad |A_v| \ge 29"><span class="eq-inline" data-tex="f_0 = \frac{1}{2\pi R C \sqrt{6}}, \quad |A_v| \ge 29"></span></span>
+              </div>
+            </div>
+
+            <!-- Right: Exact Course PDF Slide Photo -->
+            <div class="pane-half">
+              <div class="pane-title">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                Exact Photo From Course PDF (Syllabus Page 14 & 15)
+              </div>
+              <div class="photo-preview-box">
+                <img src="images/syllabus-pages/page_14.webp" alt="RC Phase-Shift Oscillator Network displayed in official lecture slides" class="slide-photo-img" width="1241" height="1755" loading="lazy" decoding="async">
+<p class="course-notice course-notice">Course material is shown for study purposes only and belongs to its respective owners. To request removal, write to <a href="mailto:karthikshenoy17@gmail.com" class="link-underline">karthikshenoy17@gmail.com</a>.</p>
+              </div>
+              <div class="pane-footer-meta">
+                <span>Click image to open high-resolution slide</span>
+                <span class="slide-tag">Syllabus Page 14 & 15</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="side-by-side-card">
+          <div class="side-by-side-header">
+            <div>
+              <strong class="text-body-base">Colpitts LC Tapped-Capacitor Oscillator</strong>
+              <div class="text-xs-muted-top">High-frequency RF oscillator utilizing split capacitive feedback divider C1-C2 and inductor L.</div>
+            </div>
+            <div class="flex-center-gap">
+              <span class="slide-tag">Syllabus Page 15</span>
+              <a href="studio.html" class="btn sm secondary" onclick="if(window.launchCircuit) window.launchCircuit('unit5-feedback');">Explore in Studio &rarr;</a>
+            </div>
+          </div>
+
+          <div class="side-by-side-grid">
+            <!-- Left: Built Circuit Schematic -->
+            <div class="pane-half">
+              <div class="pane-title">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M7 12h10"/><path d="M12 7v10"/></svg>
+                Built Schematic
+              </div>
+              <div id="builtSchematicContainer_1" class="schematic-preview-box">
+                <!-- Rendered dynamically or fallback SVG -->
+              </div>
+              <div class="mono-caption">
+                <strong>Key Equation:</strong> <span class="eq-inline" data-tex="f_0 = \frac{1}{2\pi \sqrt{L C_{eq}}}, \quad \beta = \frac{C_1}{C_2}"><span class="eq-inline" data-tex="f_0 = \frac{1}{2\pi \sqrt{L C_{eq}}}, \quad \beta = \frac{C_1}{C_2}"></span></span>
+              </div>
+            </div>
+
+            <!-- Right: Exact Course PDF Slide Photo -->
+            <div class="pane-half">
+              <div class="pane-title">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                Exact Photo From Course PDF (Syllabus Page 15)
+              </div>
+              <div class="photo-preview-box">
+                <img src="images/syllabus-pages/page_15.webp" alt="Colpitts LC Tapped-Capacitor Oscillator displayed in official lecture slides" class="slide-photo-img" width="1241" height="1755" loading="lazy" decoding="async">
+<p class="course-notice course-notice">Course material is shown for study purposes only and belongs to its respective owners. To request removal, write to <a href="mailto:karthikshenoy17@gmail.com" class="link-underline">karthikshenoy17@gmail.com</a>.</p>
+              </div>
+              <div class="pane-footer-meta">
+                <span>Click image to open high-resolution slide</span>
+                <span class="slide-tag">Syllabus Page 15</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+    </section>
+
+    <!-- Section 4: Exam Numerical Questions -->
+    <section id="exam-questions" class="mb-12">
+      <div class="lab-head">
+        <div class="lab-badge">Section 4 &middot; Numerical Examination Questions</div>
+        <h2>Unit 5 Numerical Problems &amp; Step-by-Step Derivations</h2>
+        <p class="lab-desc">Actual exam, descriptive, and test problems from the 25ECE211 syllabus solved with full mathematical working, step-by-step reasoning, and final units.</p>
+      </div>
+
+      
+        <article class="question-block" id="u5_q1">
+          <div class="question-title-bar">
+            <h3 class="heading-lg-tight">Numerical Problem 1: RC Phase-Shift Oscillator Design</h3>
+            <span class="slide-tag">Question Bank Unit V & Syllabus Exam</span>
+          </div>
+
+          <div class="card-subtle-box">
+            <strong class="label-xs-upper">Problem Statement:</strong>
+            <p class="text-body-spaced">Design an RC phase-shift oscillator using a BJT amplifier to generate a sinusoidal signal of frequency <span class="eq-inline" data-tex="f_0 = 1.0\text{kHz}"></span>. A capacitor of <span class="eq-inline" data-tex="C = 0.01\,\mu\text{F}"></span> is chosen. (a) Calculate the required resistance <span class="eq-inline" data-tex="R"></span>; (b) What is the minimum transistor current gain <span class="eq-inline" data-tex="\beta"></span> or voltage gain <span class="eq-inline" data-tex="|A_v|"></span> required to sustain oscillations?</p>
+          </div>
+
+          <div class="eyebrow-subtle">Step-by-Step Mathematical Solution:</div>
+          <div class="step-list">
+            
+              <div class="step-item">
+                <div class="pane-header-row">
+                  <strong class="text-body-sm">Step 1: Formula for Oscillation Frequency</strong>
+                  <span class="text-muted-xs">Step 1</span>
+                </div>
+                <p class="text-caption">Rearrange frequency formula to solve for resistance.</p>
+                <div class="eq-box compact-row">
+                  <div class="eq" data-tex="f_0 = \frac{1}{2\pi R C \sqrt{6}} \implies R = \frac{1}{2\pi f_0 C \sqrt{6}}"><div class="eq" data-tex="f_0 = \frac{1}{2\pi R C \sqrt{6}} \implies R = \frac{1}{2\pi f_0 C \sqrt{6}}"></div></div>
+                </div>
+              </div>
+            
+              <div class="step-item">
+                <div class="pane-header-row">
+                  <strong class="text-body-sm">Step 2: Compute Resistor Value R</strong>
+                  <span class="text-muted-xs">Step 2</span>
+                </div>
+                <p class="text-caption">Standard 6.5 kOhm precision resistors required in each of the 3 stages.</p>
+                <div class="eq-box compact-row">
+                  <div class="eq" data-tex="R = \frac{1}{2 \cdot \pi \cdot 1000 \cdot (0.01 \times 10^{-6}) \cdot 2.449} = \frac{1}{1.539 \times 10^{-4}} = 6497\ \Omega \approx 6.5\text{ k}\Omega"><div class="eq" data-tex="R = \frac{1}{2 \cdot \pi \cdot 1000 \cdot (0.01 \times 10^{-6}) \cdot 2.449} = \frac{1}{1.539 \times 10^{-4}} = 6497\ \Omega \approx 6.5\text{ k}\Omega"></div></div>
+                </div>
+              </div>
+            
+              <div class="step-item">
+                <div class="pane-header-row">
+                  <strong class="text-body-sm">Step 3: Minimum Loop Gain Condition</strong>
+                  <span class="text-muted-xs">Step 3</span>
+                </div>
+                <p class="text-caption">Attenuation through 3 RC stages at resonance is 1/29 (-29.2 dB).</p>
+                <div class="eq-box compact-row">
+                  <div class="eq" data-tex="|A\beta| \ge 1 \implies |A_v| \ge \frac{1}{|\beta_{network}|} = 29"><div class="eq" data-tex="|A\beta| \ge 1 \implies |A_v| \ge \frac{1}{|\beta_{network}|} = 29"></div></div>
+                </div>
+              </div>
+            
+              <div class="step-item">
+                <div class="pane-header-row">
+                  <strong class="text-body-sm">Step 4: Design Conclusion</strong>
+                  <span class="text-muted-xs">Step 4</span>
+                </div>
+                <p class="text-caption">Ensures self-starting oscillation at 1 kHz.</p>
+                <div class="eq-box compact-row">
+                  <div class="eq" data-tex="R = 6.5\text{ k}\Omega, \quad C = 0.01\,\mu\text{F}, \quad |A_v| \ge 29"><div class="eq" data-tex="R = 6.5\text{ k}\Omega, \quad C = 0.01\,\mu\text{F}, \quad |A_v| \ge 29"></div></div>
+                </div>
+              </div>
+            
+          </div>
+        </article>
+      
+        <article class="question-block" id="u5_q2">
+          <div class="question-title-bar">
+            <h3 class="heading-lg-tight">Numerical Problem 2: Negative Feedback Gain Stabilization & Bandwidth</h3>
+            <span class="slide-tag">Model Question Paper 25ECE211 Unit V</span>
+          </div>
+
+          <div class="card-subtle-box">
+            <strong class="label-xs-upper">Problem Statement:</strong>
+            <p class="text-body-spaced">An amplifier has an open-loop voltage gain <span class="eq-inline" data-tex="A = 1000"></span> with an upper cutoff frequency <span class="eq-inline" data-tex="f_H = 20\text{kHz}"></span>. It is configured with negative feedback using <span class="eq-inline" data-tex="\beta = 0.019"></span>. Determine: (a) closed-loop gain <span class="eq-inline" data-tex="A_f"></span>; (b) feedback desensitivity factor <span class="eq-inline" data-tex="D"></span>; (c) new closed-loop bandwidth <span class="eq-inline" data-tex="f_{Hf}"></span>; (d) percentage gain change if open-loop gain drops by 10%.</p>
+          </div>
+
+          <div class="eyebrow-subtle">Step-by-Step Mathematical Solution:</div>
+          <div class="step-list">
+            
+              <div class="step-item">
+                <div class="pane-header-row">
+                  <strong class="text-body-sm">Step 1: Desensitivity Factor</strong>
+                  <span class="text-muted-xs">Step 1</span>
+                </div>
+                <p class="text-caption">Loop gain term <span class="eq-inline" data-tex="A\beta = 19"></span>.</p>
+                <div class="eq-box compact-row">
+                  <div class="eq" data-tex="D = 1 + A\beta = 1 + 1000(0.019) = 1 + 19 = 20"><div class="eq" data-tex="D = 1 + A\beta = 1 + 1000(0.019) = 1 + 19 = 20"></div></div>
+                </div>
+              </div>
+            
+              <div class="step-item">
+                <div class="pane-header-row">
+                  <strong class="text-body-sm">Step 2: Closed-Loop Gain</strong>
+                  <span class="text-muted-xs">Step 2</span>
+                </div>
+                <p class="text-caption">Gain reduced by a factor of 20.</p>
+                <div class="eq-box compact-row">
+                  <div class="eq" data-tex="A_f = \frac{A}{1 + A\beta} = \frac{1000}{20} = 50\text{ V/V} \quad (34\text{ dB})"><div class="eq" data-tex="A_f = \frac{A}{1 + A\beta} = \frac{1000}{20} = 50\text{ V/V} \quad (34\text{ dB})"></div></div>
+                </div>
+              </div>
+            
+              <div class="step-item">
+                <div class="pane-header-row">
+                  <strong class="text-body-sm">Step 3: Bandwidth Extension</strong>
+                  <span class="text-muted-xs">Step 3</span>
+                </div>
+                <p class="text-caption">Bandwidth increases by the exact same factor that gain was reduced.</p>
+                <div class="eq-box compact-row">
+                  <div class="eq" data-tex="f_{Hf} = f_H \cdot (1 + A\beta) = 20\text{ kHz} \times 20 = 400\text{ kHz}"><div class="eq" data-tex="f_{Hf} = f_H \cdot (1 + A\beta) = 20\text{ kHz} \times 20 = 400\text{ kHz}"></div></div>
+                </div>
+              </div>
+            
+              <div class="step-item">
+                <div class="pane-header-row">
+                  <strong class="text-body-sm">Step 4: Sensitivity to Open-Loop Gain Change</strong>
+                  <span class="text-muted-xs">Step 4</span>
+                </div>
+                <p class="text-caption">A 10% drop in transistor gain results in only a 0.5% variation in closed-loop gain.</p>
+                <div class="eq-box compact-row">
+                  <div class="eq" data-tex="\frac{\Delta A_f}{A_f} = \frac{1}{1 + A\beta} \cdot \frac{\Delta A}{A} = \frac{1}{20} \cdot (-10\%) = -0.5\%"><div class="eq" data-tex="\frac{\Delta A_f}{A_f} = \frac{1}{1 + A\beta} \cdot \frac{\Delta A}{A} = \frac{1}{20} \cdot (-10\%) = -0.5\%"></div></div>
+                </div>
+              </div>
+            
+          </div>
+        </article>
+      
+    </section>
+
+  </div>
+
+  
+    <div class="wrap unit-pagination-bar" style="display:flex; justify-content:flex-end; gap: var(--sp-3); margin-top: var(--sp-12); margin-bottom: var(--sp-8);">
+    <a class="btn sm secondary" href="unit4.html">&larr; Unit 4</a>
+        <a class="btn sm secondary" href="index.html">Main Lab Directory</a>
+  </div>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="wrap">
+      <div>
+        <p class="footer-affiliation">
+          Independent student project by Karthik Shenoy. Strictly not affiliated with, endorsed by, or connected to NMAM Institute of Technology (NMAMIT) or Nitte (Deemed to be University).
+        </p>
+        <p class="footer-course-notice">
+          Course material is shown for study purposes only and belongs to its respective owners. To request removal, write to <a href="mailto:karthikshenoy17@gmail.com" class="link-underline">karthikshenoy17@gmail.com</a>.
+        </p>
+        <p class="footer-meta-line">
+          Contact: <a href="mailto:karthikshenoy17@gmail.com" class="link-underline">karthikshenoy17@gmail.com</a> &middot; Last updated: November 2026 &middot; <a href="about.html" class="link-underline">About &amp; credits</a> &middot; <a href="mailto:karthikshenoy17@gmail.com?subject=Error%20report:unit5.html" class="link-underline">Report an error</a> &middot; <span class="theme-toggle-wrap">Theme: <button type="button" id="themeToggleBtn" class="theme-toggle-btn" aria-label="Toggle dark or light theme">Dark</button></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+  
+
+  <!-- Scripts -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Render KaTeX equations
+      function renderEquations() {
+        if (!window.katex) return;
+        document.querySelectorAll('.eq[data-tex]').forEach(el => {
+          try { katex.render(el.getAttribute('data-tex'), el, { displayMode: true, throwOnError: false }); } catch(e) {}
+        });
+        document.querySelectorAll('.eq-inline[data-tex]').forEach(el => {
+          try { katex.render(el.getAttribute('data-tex'), el, { displayMode: false, throwOnError: false }); } catch(e) {}
+        });
+      }
+      renderEquations();
+      window.addEventListener('load', renderEquations);
+
+      // 2. Render Built Schematics into containers
+      
+        const box_0 = document.getElementById('builtSchematicContainer_0');
+        if (box_0 && window.getCircuitSvg) {
+          box_0.innerHTML = window.getCircuitSvg('unit5-feedback', null, null, 380, 240);
+        }
+      
+        const box_1 = document.getElementById('builtSchematicContainer_1');
+        if (box_1 && window.getCircuitSvg) {
+          box_1.innerHTML = window.getCircuitSvg('unit5-feedback', null, null, 380, 240);
+        }
+      
+
+      
+      // 4. Nav Dropdown keyboard accessibility
+      const dropdowns = document.querySelectorAll('.nav-dropdown');
+      dropdowns.forEach(dd => {
+        const btn = dd.querySelector('.nav-dropdown-btn');
+        const menu = dd.querySelector('.nav-dropdown-menu');
+        if (!btn || !menu) return;
+
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const open = dd.classList.toggle('open');
+          btn.setAttribute('aria-expanded', String(open));
+          if (open) {
+            const first = menu.querySelector('a');
+            if (first) first.focus();
+          }
+        });
+
+        btn.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            dd.classList.add('open');
+            btn.setAttribute('aria-expanded', 'true');
+            const first = menu.querySelector('a');
+            if (first) first.focus();
+          }
+        });
+
+        menu.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            dd.classList.remove('open');
+            btn.setAttribute('aria-expanded', 'false');
+            btn.focus();
+          }
+        });
+      });
+
+      document.addEventListener('click', (e) => {
+        dropdowns.forEach(dd => {
+          if (!dd.contains(e.target)) {
+            dd.classList.remove('open');
+            const btn = dd.querySelector('.nav-dropdown-btn');
+            if (btn) btn.setAttribute('aria-expanded', 'false');
+          }
+        });
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          dropdowns.forEach(dd => {
+            if (dd.classList.contains('open')) {
+              dd.classList.remove('open');
+              const btn = dd.querySelector('.nav-dropdown-btn');
+              if (btn) {
+                btn.setAttribute('aria-expanded', 'false');
+                btn.focus();
+              }
+            }
+          });
+        }
+      });
+
+      // 3. Mobile Hamburger
+      const hamburger = document.getElementById('navHamburger');
+      const drawer = document.getElementById('navDrawer');
+      if (hamburger && drawer) {
+        hamburger.addEventListener('click', () => {
+          const open = drawer.classList.toggle('open');
+          hamburger.setAttribute('aria-expanded', String(open));
+        });
+        drawer.querySelectorAll('a').forEach(a => {
+          a.addEventListener('click', () => {
+            drawer.classList.remove('open');
+            hamburger.setAttribute('aria-expanded', 'false');
+          });
+        });
+      }
+    });
+  </script>
+
+  <script src="js/circuits-data.js"></script>
+  <script src="js/units/unit5-feedback.js"></script>
+  <script src="js/circuit-studio.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

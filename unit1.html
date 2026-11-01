@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Unit I: Diodes and BJT Analysis | Analog Circuits Odyssey</title>
+  <meta name="description" content="Curriculum page for 25ECE211 Unit I: Diode Applications & BJT Analysis: detailed theory, mathematical derivations, side-by-side interactive schematics alongside course PDF lecture slides, and step-by-step exam numerical problem solvers.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="alternate icon" type="image/png" href="favicon.png">
+
+  <!-- KaTeX CSS & JS -->
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
+  <script defer src="vendor/katex/katex.min.js"></script>
+  
+
+  <!-- Custom Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/physics.css">
+
+  <style>
+    /* Unit Page Specific Layouts */
+    .unit-hero {
+      padding: var(--sp-12) 0 var(--sp-8);
+      border-bottom: 1px solid var(--c-border);
+      background: var(--c-base);
+    }
+    .unit-toc-strip {
+      display: flex;
+      gap: var(--sp-2);
+      flex-wrap: wrap;
+      margin-top: var(--sp-6);
+    }
+    .unit-toc-strip a {
+      font-size: var(--text-xs);
+      font-weight: 600;
+      padding: var(--sp-2) var(--sp-3);
+      border-radius: var(--r-sm);
+      border: 1px solid var(--c-border);
+      background: var(--c-surface);
+      color: var(--c-text-2);
+      transition: all var(--ease);
+    }
+    .unit-toc-strip a:hover {
+      border-color: var(--c-border-mid);
+      color: var(--c-text);
+      background: var(--c-surface-2);
+    }
+    .theory-card {
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-md);
+      padding: var(--sp-6);
+      margin-bottom: var(--sp-6);
+    }
+    .theory-card h3 {
+      font-size: var(--text-xl);
+      color: var(--c-text);
+      margin-bottom: var(--sp-3);
+      border-bottom: 1px solid var(--c-border);
+      padding-bottom: var(--sp-2);
+    }
+    .side-by-side-card {
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-md);
+      overflow: hidden;
+      margin-bottom: var(--sp-8);
+    }
+    .side-by-side-header {
+      padding: var(--sp-4) var(--sp-6);
+      border-bottom: 1px solid var(--c-border);
+      background: var(--c-surface-2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--sp-2);
+    }
+    .side-by-side-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1px;
+      background: var(--c-border);
+    }
+    @media (min-width: 900px) {
+      .side-by-side-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    .pane-half {
+      background: var(--c-surface);
+      padding: var(--sp-5);
+      display: flex;
+      flex-direction: column;
+    }
+    .pane-title {
+      font-size: var(--text-xs);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--c-text-3);
+      margin-bottom: var(--sp-3);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .slide-photo-img {
+      width: 100%;
+      height: auto;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--c-border);
+      cursor: zoom-in;
+      transition: opacity var(--ease);
+      background: var(--c-surface);
+    }
+    .slide-photo-img:hover {
+      opacity: 0.95;
+    }
+    .question-block {
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-md);
+      padding: var(--sp-6);
+      margin-bottom: var(--sp-6);
+    }
+    .question-title-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: var(--sp-3);
+    }
+    .step-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+      margin-top: var(--sp-4);
+    }
+    .step-item {
+      background: var(--c-base);
+      border: 1px solid var(--c-border);
+      border-left: 3px solid var(--c-accent);
+      border-radius: var(--r-sm);
+      padding: var(--sp-3) var(--sp-4);
+    }
+  </style>
+  <meta property="og:title" content="Analog Circuits Odyssey | 25ECE211">
+  <meta property="og:description" content="Laboratory instruments, 3D device physics, and worked exam problem solver for 25ECE211.">
+  <meta property="og:type" content="website">
+  
+  <meta name="twitter:card" content="summary">
+  <script>(function(){const t=localStorage.getItem('theme');if(t==='light')document.documentElement.setAttribute('data-theme','light');})();</script>
+</head>
+<body class="physics">
+<span id="main-content"></span>
+  <noscript>
+    <div class="noscript-warning">
+      JavaScript is disabled in your browser. Oscilloscopes, 3D device chambers, and calculators require JavaScript to run.
+    </div>
+  </noscript>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  
+  <!-- Top Navigation -->
+    <!-- Top Navigation Bar -->
+    <!-- Top Navigation Bar -->
+  <nav class="nav" aria-label="Main Navigation">
+    <div class="wrap">
+      <div class="brand-group">
+        <a class="brand" href="index.html">
+          <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-24">
+            <rect x="2" y="16" width="24" height="8" rx="2" fill="#18181b" stroke="#ffffff" stroke-width="1.5"/>
+            <rect x="4" y="12" width="6" height="4" fill="#71717a"/>
+            <rect x="18" y="12" width="6" height="4" fill="#71717a"/>
+            <rect x="11" y="11" width="6" height="1.5" fill="#ffffff"/>
+            <rect x="11" y="4" width="6" height="7" rx="1" fill="#f59e0b"/>
+          </svg>
+          Analog Circuits Odyssey
+        </a>
+        <span class="nav-crumb">25ECE211</span>
+      </div>
+      <div class="nav-links">
+        <div class="nav-dropdown" aria-label="Units menu">
+          <button class="nav-dropdown-btn" aria-haspopup="true" aria-expanded="false">
+            Units <svg class="nav-dd-arrow" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <div class="nav-dropdown-menu" role="menu">
+            <a href="unit1.html" role="menuitem" class="active">Unit I: Diodes & BJT</a>
+            <a href="unit2.html" role="menuitem">Unit II: 3D MOSFET</a>
+            <a href="unit3.html" role="menuitem">Unit III: Amplifiers</a>
+            <a href="unit4.html" role="menuitem">Unit IV: Diff & Power</a>
+            <a href="unit5.html" role="menuitem">Unit V: Oscillators</a>
+          </div>
+        </div>
+        <a href="studio.html">Circuit Studio</a>
+        <a href="formulas.html">Formulas</a>
+        <a href="exam-solver.html" class="nav-cta">Exam Solver</a>
+      </div>
+      <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navDrawer">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile nav drawer -->
+  <div class="nav-drawer" id="navDrawer" role="dialog" aria-label="Navigation menu" aria-modal="true">
+    <p class="nav-drawer-section">Units</p>
+    <a href="unit1.html" class="active">Unit I: Diodes & BJT</a>
+    <a href="unit2.html">Unit II: 3D MOSFET</a>
+    <a href="unit3.html">Unit III: Amplifiers</a>
+    <a href="unit4.html">Unit IV: Diff & Power</a>
+    <a href="unit5.html">Unit V: Oscillators</a>
+    <p class="nav-drawer-section">Tools</p>
+    <a href="studio.html">Circuit Studio</a>
+    <a href="formulas.html">Formulas Reference</a>
+    <a href="exam-solver.html">Worked Problem Solver</a>
+  </div>
+
+  <header class="unit-hero">
+    <div class="wrap">
+      <span class="eyebrow">Unit I &middot; Non-Linear Waveshaping & Bipolar Junction Transistors</span>
+      <h1 class="unit-hero-title">Unit I: Diode Applications & BJT Analysis</h1>
+      <p class="lead unit-hero-lead">
+        Study of non-linear diode clippers, clampers, 3D BJT physical charge transport, and small-signal common-emitter / emitter-follower amplifier configurations.
+      </p>
+
+      <nav class="unit-toc-strip" aria-label="Page Sections">
+        <a href="#interactive-labs" class="text-accent-bold">&sect; Instruments</a>
+        <a href="#theory">&sect; 1. Theory &amp; Concepts</a>
+        <a href="#formulas">&sect; 2. Mathematical Formulas</a>
+        <a href="#circuits-comparison">&sect; 3. Circuits: Built Schematic vs. PDF Slide Photo</a>
+        <a href="#exam-questions">&sect; 4. Exam Numerical Questions &amp; Solvers</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap py-section">
+
+    <!-- Section 1: Theory -->
+    
+      <!-- Laboratory Simulations -->
+      <section id="interactive-labs" class="mb-12">
+        <h2 class="section-title-bordered">Laboratory Instruments</h2>
+<section class="lab-sec" id="lab-clippers">
+        <header class="lab-head">
+          <span class="lab-num">01</span>
+          <div>
+            <h3>Diode Clippers &amp; Clampers Oscilloscope</h3>
+            <p class="lead">Observe live input vs. output waveforms and voltage clamping/clipping actions. Adjust peak amplitude, diode knee voltage, and DC bias level in real time.</p>
+          </div>
+        </header>
+
+        <div class="lab-grid">
+          <aside class="card lab-ctl">
+            <div class="ctl-group">
+              <label for="diodeMode" class="ctl-header">Circuit Topology</label>
+              <select id="diodeMode" class="btn-select">
+                <option value="clipper-pos">Positive Clipper (Clips > +Vd)</option>
+                <option value="clipper-neg">Negative Clipper (Clips < -Vd)</option>
+                <option value="clipper-biased">Biased Positive Clipper (Clips > Vbias + Vd)</option>
+                <option value="clamper-pos">Positive Clamper (+DC Shift)</option>
+                <option value="clamper-neg">Negative Clamper (-DC Shift)</option>
+              </select>
+            </div>
+
+            <div class="ctl-group">
+              <div class="ctl-header">
+                <label for="diodeVm" class="ctl-header">Input Peak Voltage (Vm)</label>
+                <span class="val" id="diodeVmVal">10 V</span>
+              </div>
+              <input type="range" id="diodeVm" min="2" max="15" step="0.5" value="10">
+            </div>
+
+            <div class="ctl-group">
+              <div class="ctl-header">
+                <label for="diodeVbias" class="ctl-header">DC Bias Voltage (Vbias)</label>
+                <span class="val" id="diodeVbiasVal">3 V</span>
+              </div>
+              <input type="range" id="diodeVbias" min="0" max="8" step="0.5" value="3">
+            </div>
+
+            <div class="metrics-row">
+              <div class="metric" aria-live="polite">
+                <div class="lbl">Diode Drop Vd</div>
+                <div class="val">0.7 V (Si)</div>
+              </div>
+              <div class="metric" aria-live="polite">
+                <div class="lbl">Signal Frequency</div>
+                <div class="val">1.0 kHz</div>
+              </div>
+            </div>
+          </aside>
+
+          <div class="lab-view">
+            <div class="scope-screen">
+              <div class="scope-legend">
+                <span class="diode-legend-ch1"><span class="scope-swatch scope-swatch-ch1" aria-hidden="true"></span>CH1 Input Vin</span>
+                <span class="diode-legend-ch2"><span class="scope-swatch scope-swatch-ch2" aria-hidden="true"></span>CH2 Output Vout</span>
+              </div>
+              <canvas id="diodeScopeCanvas" aria-label="Oscilloscope display showing diode waveform clipping and clamping"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div class="lab-experiments-grid">
+          <div class="card card-padded">
+            <h4 class="heading-serif-base">Guided Experiments</h4>
+            <ol class="experiments-list">
+              <li>Set <strong>Circuit Topology</strong> to <em>Positive Clipper</em> and <strong>Peak Input (Vm)</strong> to <em>10 V</em>. Watch peak output clamp to <em>+0.7 V</em> with negative peaks reaching <em>-10.0 V</em>. Why: The forward-biased diode conducts whenever input voltage exceeds knee voltage as defined by <span class="eq-inline" data-tex="V_{out} = \min(V_{in}, V_D)"></span>.</li>
+              <li>Set <strong>Circuit Topology</strong> to <em>Positive Clamper</em> and <strong>Peak Input (Vm)</strong> to <em>6 V</em>. Watch the waveform shift upward such that negative peaks touch <em>-0.7 V</em> and positive peaks reach <em>+11.3 V</em>. Why: The coupling capacitor charges to peak voltage minus diode drop, establishing a DC baseline shift given by <span class="eq-inline" data-tex="V_{out}(t) = V_{in}(t) + (V_m - V_D)"></span>.</li>
+            </ol>
+          </div>
+        </div>
+
+          <div class="pl-card pl-eqs">
+            <h4>The Physics</h4>
+            <div class="eq" data-tex="V_{out} = \min(V_{in}, V_{bias} + V_D) \quad\text{(Biased Clipper)}"></div>
+            <div class="eq" data-tex="V_{out}(t) = V_{in}(t) + (V_m - V_D) \quad\text{(Positive Clamper)}"></div>
+            <small>A clamper must satisfy <span class="eq-inline" data-tex="R_L C \gg 10 T"></span> so the capacitor does not discharge during the input cycle period.</small>
+          </div>
+
+          <div class="pl-card pl-real">
+            <h4>Why It Matters</h4>
+            <p>Clippers protect sensitive CMOS inputs from electrostatic discharge (ESD) and voltage spikes. Clampers restore DC baseline levels in television video signals and radar displays.</p>
+          </div>
+        </div>
+      <div style="margin-top:12px; text-align:right;"><a href="mailto:karthikshenoy17@gmail.com?subject=Error%20report:%20Unit%201%20(lab-clippers)" class="link-underline" style="font-size:var(--text-xs); color:var(--c-text-3);">Report an error in this lab</a></div>
+      </section>
+<section class="lab-sec" id="lab-bjt3d">
+        <header class="lab-head">
+          <span class="lab-num">02</span>
+          <div>
+            <h3>3D BJT Carrier Injection &amp; Early Effect Chamber</h3>
+            <p class="lead">Rotate and zoom into an active NPN bipolar transistor. Watch electrons injected from the heavily doped emitter traverse the ultra-thin base, witness base recombination (<span class="eq-inline" data-tex="I_B"></span>), and see the high collector electric field sweep carriers into the collector (<span class="eq-inline" data-tex="I_C = \beta I_B"></span>).</p>
+          </div>
+        </header>
+
+        <div class="lab-grid">
+          <aside class="card lab-ctl">
+            <div class="ctl-group">
+              <div class="ctl-header">
+                <label for="bjt3dVbe" class="ctl-header">Base-Emitter Voltage (VBE)</label>
+                <span class="val" id="bjt3dVbeVal">0.70 V</span>
+              </div>
+              <input type="range" id="bjt3dVbe" min="0.4" max="0.85" step="0.01" value="0.70"
+                oninput="document.getElementById('bjt3dVbeVal').textContent = parseFloat(this.value).toFixed(2)+' V'; if(window.bjtChamber) window.bjtChamber.setVoltages(this.value, document.getElementById('bjt3dVce').value)">
+            </div>
+
+            <div class="ctl-group">
+              <div class="ctl-header">
+                <label for="bjt3dVce" class="ctl-header">Collector-Emitter Voltage (VCE)</label>
+                <span class="val" id="bjt3dVceVal">8.0 V</span>
+              </div>
+              <input type="range" id="bjt3dVce" min="0.5" max="20" step="0.5" value="8.0"
+                oninput="document.getElementById('bjt3dVceVal').textContent = parseFloat(this.value).toFixed(1)+' V'; if(window.bjtChamber) window.bjtChamber.setVoltages(document.getElementById('bjt3dVbe').value, this.value)">
+            </div>
+
+            <div class="metrics-row">
+              <div class="metric" aria-live="polite">
+                <div class="lbl">Current Gain β</div>
+                <div class="val">120</div>
+              </div>
+              <div class="metric" aria-live="polite">
+                <div class="lbl">Transport Ratio α</div>
+                <div class="val">0.992</div>
+              </div>
+            </div>
+
+            <div class="ctl-group">
+              <label class="ctl-header">Camera View Presets</label>
+              <div class="btn-group">
+                <button type="button" class="btn-sm active" data-view-bjt="iso">Isometric</button>
+                <button type="button" class="btn-sm" data-view-bjt="top">Top View</button>
+                <button type="button" class="btn-sm" data-view-bjt="side">Side Junction</button>
+              </div>
+            </div>
+          </aside>
+
+          <div class="lab-view">
+            <div class="chamber-viewport" id="bjt3dContainer">
+              <div class="chamber-legend">
+                <div class="legend-item"><span class="legend-dot dot-source"></span> Emitter (n+)</div>
+                <div class="legend-item"><span class="legend-dot" style="background:#f43f5e;"></span> Base (Thin p)</div>
+                <div class="legend-item"><span class="legend-dot" style="background:#818cf8;"></span> C-B Depletion Region</div>
+                <div class="legend-item"><span class="legend-dot dot-channel"></span> Collector (n)</div>
+                <div class="legend-item"><span class="legend-dot dot-carrier"></span> Injected Electrons</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lab-experiments-grid">
+          <div class="card card-padded">
+            <h4 class="heading-serif-base">Guided Experiments</h4>
+            <ol class="experiments-list">
+              <li>Set <strong>Base-Emitter Bias (Vbe)</strong> to <em>0.70 V</em> and <strong>Collector-Emitter Bias (Vce)</strong> to <em>5.0 V</em>. Watch carrier injection across the base into the collector with high velocity carrier transit. Why: Forward-biasing the base-emitter junction initiates carrier injection while reverse-biasing the collector-base junction establishes collector current governed by <span class="eq-inline" data-tex="I_C = \beta I_B"></span>.</li>
+              <li>Set <strong>Collector-Emitter Bias (Vce)</strong> to <em>20.0 V</em> and <strong>Base-Emitter Bias (Vbe)</strong> to <em>0.70 V</em>. Watch the purple Collector-Base depletion region expand across the neutral base. Why: Higher reverse bias widens the collector-base depletion layer and reduces neutral base width <span class="eq-inline" data-tex="W_B"></span> via base-width modulation (Early effect).</li>
+            </ol>
+          </div>
+        </div>
+
+          <div class="pl-card pl-real">
+            <h4>Why It Matters</h4>
+            <p>A narrow base is crucial: if the base were thick, all injected electrons would recombine with holes, driving <span class="eq-inline" data-tex="I_C \to 0"></span> and destroying transistor action. The Early voltage <span class="eq-inline" data-tex="V_A"></span> sets the finite output resistance <span class="eq-inline" data-tex="r_o = V_A / I_C"></span>.</p>
+          </div>
+        </div>
+      <div style="margin-top:12px; text-align:right;"><a href="mailto:karthikshenoy17@gmail.com?subject=Error%20report:%20Unit%201%20(lab-bjt3d)" class="link-underline" style="font-size:var(--text-xs); color:var(--c-text-3);">Report an error in this lab</a></div>
+      </section>
+<section class="lab-sec" id="lab-bjt-loadline">
+        <header class="lab-head">
+          <span class="lab-num">03</span>
+          <div>
+            <h3>BJT DC Load Line, Q-Point &amp; AC re Model</h3>
+            <p class="lead">Analyze Fixed Bias, Emitter-Stabilized Bias, and Voltage Divider Bias. Verify the stability criterion <span class="eq-inline" data-tex="\beta R_E \ge 10 R_2"></span> and calculate <span class="eq-inline" data-tex="r_e, Z_{in}, Z_{out}"></span> and voltage gain <span class="eq-inline" data-tex="A_v"></span>.</p>
+          </div>
+        </header>
+
+        <div class="lab-grid">
+          <aside class="card lab-ctl">
+            <div class="ctl-group">
+              <label class="ctl-header">Biasing Scheme</label>
+              <div class="btn-group">
+                <label style="flex:1; text-align:center; font-size:0.78rem; font-weight:600; cursor:pointer;">
+                  <input type="radio" name="bjtBias" value="divider" checked style="display:none;"> Voltage Divider
+                </label>
+                <label style="flex:1; text-align:center; font-size:0.78rem; font-weight:600; cursor:pointer;">
+                  <input type="radio" name="bjtBias" value="emitter" style="display:none;"> Emitter Bias
+                </label>
+                <label style="flex:1; text-align:center; font-size:0.78rem; font-weight:600; cursor:pointer;">
+                  <input type="radio" name="bjtBias" value="fixed" style="display:none;"> Fixed Bias
+                </label>
+              </div>
+            </div>
+
+            <div class="ctl-group">
+              <div class="ctl-header">
+                <label for="bjtVcc" class="ctl-header">Supply Voltage (VCC)</label>
+                <span class="val" id="bjtVccVal">16 V</span>
+              </div>
+              <input type="range" id="bjtVcc" min="8" max="24" step="1" value="16">
+            </div>
+
+            <div class="ctl-group">
+              <div class="ctl-header">
+                <label for="bjtRc" class="ctl-header">Collector Resistor (RC)</label>
+                <span class="val" id="bjtRcVal">1.8 kΩ</span>
+              </div>
+              <input type="range" id="bjtRc" min="0.5" max="8" step="0.1" value="1.8">
+            </div>
+
+            <div class="ctl-group">
+              <div class="ctl-header">
+                <label for="bjtRb" class="ctl-header">Base Resistor (RB - Fixed Bias)</label>
+                <span class="val" id="bjtRbVal">330 kΩ</span>
+              </div>
+              <input type="range" id="bjtRb" min="50" max="800" step="10" value="330">
+            </div>
+
+            <div class="ctl-group">
+              <div class="ctl-header">
+                <label for="bjtRe" class="ctl-header">Emitter Resistor (RE)</label>
+                <span class="val" id="bjtReValInput">0.82 kΩ</span>
+              </div>
+              <input type="range" id="bjtRe" min="0.1" max="3" step="0.05" value="0.82">
+            </div>
+
+            <div class="ctl-group">
+              <div class="ctl-header">
+                <label for="bjtBeta" class="ctl-header">Current Gain (β)</label>
+                <span class="val" id="bjtBetaVal">120</span>
+              </div>
+              <input type="range" id="bjtBeta" min="40" max="250" step="5" value="120">
+            </div>
+
+            <div class="metrics-row">
+              <div class="metric" aria-live="polite">
+                <div class="lbl">Operating Q-Point</div>
+                <div class="val" id="bjtVceqVal">8.5 V</div>
+              </div>
+              <div class="metric" aria-live="polite">
+                <div class="lbl">Collector Current ICQ</div>
+                <div class="val" id="bjtIcqVal">2.8 mA</div>
+              </div>
+              <div class="metric" aria-live="polite">
+                <div class="lbl">Base Current IBQ</div>
+                <div class="val" id="bjtIbqVal">23.3 µA</div>
+              </div>
+              <div class="metric" aria-live="polite">
+                <div class="lbl">Small-signal re</div>
+                <div class="val" id="bjtReVal">9.3 Ω</div>
+              </div>
+              <div class="metric" aria-live="polite">
+                <div class="lbl">Voltage Gain Av</div>
+                <div class="val" id="bjtAvVal">-193.5</div>
+              </div>
+              <div class="metric" aria-live="polite">
+                <div class="lbl">Region of Operation</div>
+                <div class="val"><span class="status-badge active-bjt" id="bjtRegionVal">Active</span></div>
+              </div>
+            </div>
+
+            <p id="bjtApproxCond" style="font-size:0.75rem; font-family:var(--font-mono); color:#34d399; margin-top:4px;"></p>
+          </aside>
+
+          <div class="lab-view">
+            <div class="plot-wrapper">
+              <canvas id="bjtLoadLineCanvas" aria-label="BJT collector characteristic curves with DC load line and Q-point"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div class="lab-experiments-grid">
+          <div class="card card-padded">
+            <h4 class="heading-serif-base">Guided Experiments</h4>
+            <ol class="experiments-list">
+              <li>Set <strong>Supply Voltage (Vcc)</strong> to <em>12.0 V</em> and <strong>Collector Resistor (Rc)</strong> to <em>2.0 k&Omega;</em>. Watch Operating Q-Point display <em>10.07 V</em> and Collector Current display <em>0.69 mA</em> in <em>ACTIVE</em> region. Why: The DC operating point satisfies <span class="eq-inline" data-tex="V_{CE} = V_{CC} - I_C(R_C + R_E)"></span> along the DC load line.</li>
+              <li>Set <strong>Current Gain (&beta;)</strong> to <em>250</em> and <strong>Supply Voltage (Vcc)</strong> to <em>12.0 V</em>. Watch Collector Current increase and Operating Q-Point shift downward toward saturation. Why: Base current amplification scales collector current according to <span class="eq-inline" data-tex="I_C = \beta I_B"></span> until limited by saturation.</li>
+            </ol>
+          </div>
+        </div>
+
+          <div class="pl-card pl-eqs">
+            <h4>The Physics</h4>
+            <div class="eq" data-tex="I_{C(sat)} = \frac{V_{CC}}{R_C + R_E}, \quad V_{CE(cutoff)} = V_{CC}"></div>
+            <div class="eq" data-tex="\beta R_E \ge 10 R_2 \implies V_B \approx V_{CC}\frac{R_2}{R_1 + R_2}"></div>
+            <div class="eq" data-tex="A_v \approx -\frac{R_C}{r_e} \quad (\text{Bypassed } R_E), \quad A_v \approx -\frac{R_C}{r_e + R_E} \quad (\text{Unbypassed})"></div>
+          </div>
+
+          <div class="pl-card pl-real">
+            <h4>Why It Matters</h4>
+            <p>Fixed bias circuits suffer terrible thermal runaway because <span class="eq-inline" data-tex="\beta"></span> doubles every 50 &deg;C. Voltage divider biasing makes <span class="eq-inline" data-tex="I_{CQ}"></span> practically independent of <span class="eq-inline" data-tex="\beta"></span>, guaranteeing reliable mass production.</p>
+          </div>
+        </div>
+      <div style="margin-top:12px; text-align:right;"><a href="mailto:karthikshenoy17@gmail.com?subject=Error%20report:%20Unit%201%20(lab-bjt-loadline)" class="link-underline" style="font-size:var(--text-xs); color:var(--c-text-3);">Report an error in this lab</a></div>
+      </section>
+      </section>
+<section id="theory" class="mb-12">
+      <div class="lab-head">
+        <div class="lab-badge">Section 1 &middot; Theory &amp; Physics Models</div>
+        <h2>Conceptual Theory &amp; Device Physics</h2>
+        <p class="lab-desc">Detailed physical principles, band diagrams, operating mechanisms, and small-signal linear approximations for Unit 1.</p>
+      </div>
+
+      
+        <article class="theory-card">
+          <h3>1. Diode Clippers (Limiters) & Clampers (DC Restorers)</h3>
+          <div>
+          <p>Clipping circuits shape input AC waveforms by removing portions of the signal above or below predetermined reference levels using diodes and DC reference biases. Clampers, or DC restorers, shift the baseline of the signal without altering its peak-to-peak amplitude by utilizing a capacitor and diode with a time constant <span class="eq-inline" data-tex="RC \gg T"></span>.</p>
+          <ul class="theory-list">
+            <li><strong>Positive Biased Clipper:</strong> Limits positive peaks to <span class="eq-inline" data-tex="V_R + V_D"></span>. The diode conducts when <span class="eq-inline" data-tex="v_{in} > V_R + V_D"></span>.</li>
+            <li><strong>Negative Biased Clipper:</strong> Limits negative peaks to <span class="eq-inline" data-tex="-V_R - V_D"></span>.</li>
+            <li><strong>Positive Clamper:</strong> Shifts the entire waveform upward so that negative peaks touch ground (or reference level). Capacitor charges to <span class="eq-inline" data-tex="V_C = V_m - V_D"></span>.</li>
+          </ul>
+        </div>
+        </article>
+      
+        <article class="theory-card">
+          <h3>2. BJT Physical Transport & Carrier Injection</h3>
+          <div>
+          <p>In an NPN bipolar transistor biased in the active region, the forward-biased Base-Emitter junction injects excess minority electrons from the heavily doped emitter into the narrow base. These electrons diffuse across the base, where less than 1% recombine with majority holes, and are swept across the reverse-biased Collector-Base depletion region by the strong electric field.</p>
+          <div style="background:var(--c-surface); border:1px solid var(--c-border); padding:var(--sp-4); border-radius:var(--r-md); margin-top:12px;">
+            <strong>Small-Signal Hybrid-<span class="eq-inline" data-tex="pi"></span> Parameters:</strong>
+            <p style="margin-top:6px; color:var(--c-text-2);">At DC operating current <span class="eq-inline" data-tex="I_{CQ}"></span>, the dynamic emitter resistance is <span class="eq-inline" data-tex="r_e = \frac{V_T}{I_{EQ}} \approx \frac{26\text{ mV}}{I_{EQ}}"></span>, input base resistance is <span class="eq-inline" data-tex="r_\pi = (\beta+1)r_e = \frac{\beta V_T}{I_{CQ}}"></span>, and transconductance is <span class="eq-inline" data-tex="g_m = \frac{I_{CQ}}{V_T}"></span>.</p>
+          </div>
+        </div>
+        </article>
+      
+        <article class="theory-card">
+          <h3>3. BJT DC Biasing & Small-Signal AC Models</h3>
+          <div>
+          <p>Stability of the Q-point is paramount against variations in temperature and <span class="eq-inline" data-tex="\beta"></span>. The voltage-divider bias circuit uses an emitter resistor <span class="eq-inline" data-tex="R_E"></span> to provide negative feedback, stabilizing <span class="eq-inline" data-tex="I_C"></span> against temperature drifts.</p>
+        </div>
+        </article>
+      
+    </section>
+
+    <!-- Section 2: Formulas -->
+    <section id="formulas" class="mb-12">
+      <div class="lab-head">
+        <div class="lab-badge">Section 2 &middot; Formula Reference</div>
+        <h2>Unit 1 Formulas &amp; Analytical Equations</h2>
+        <p class="lab-desc">Core mathematical formulations, DC biasing conditions, small-signal models, and gain equations derived in the syllabus.</p>
+      </div>
+
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--sp-4);">
+        
+          <div class="mini-card">
+            <div class="mini-card-title">Transconductance</div>
+            <div class="eq-box code-box">
+              <div class="eq" data-tex="g_m = \frac{I_C}{V_T} = \frac{I_C}{26\text{ mV}}"><div class="eq" data-tex="g_m = \frac{I_C}{V_T} = \frac{I_C}{26\text{ mV}}"></div></div>
+            </div>
+            <div class="text-muted-xs">Relates AC collector current to base-emitter voltage.</div>
+          </div>
+        
+          <div class="mini-card">
+            <div class="mini-card-title">Base Dynamic Resistance</div>
+            <div class="eq-box code-box">
+              <div class="eq" data-tex="r_\pi = \frac{\beta V_T}{I_C} = \beta r_e"><div class="eq" data-tex="r_\pi = \frac{\beta V_T}{I_C} = \beta r_e"></div></div>
+            </div>
+            <div class="text-muted-xs">Small-signal input resistance seen looking into the base.</div>
+          </div>
+        
+          <div class="mini-card">
+            <div class="mini-card-title">CE Fixed Bias Voltage Gain</div>
+            <div class="eq-box code-box">
+              <div class="eq" data-tex="A_v = -\frac{\beta (R_C \parallel r_o \parallel R_L)}{r_\pi} = -g_m (R_C \parallel r_o \parallel R_L)"><div class="eq" data-tex="A_v = -\frac{\beta (R_C \parallel r_o \parallel R_L)}{r_\pi} = -g_m (R_C \parallel r_o \parallel R_L)"></div></div>
+            </div>
+            <div class="text-muted-xs">180° inverting voltage gain of the common-emitter stage.</div>
+          </div>
+        
+          <div class="mini-card">
+            <div class="mini-card-title">Emitter Follower Input Impedance</div>
+            <div class="eq-box code-box">
+              <div class="eq" data-tex="Z_i = R_B \parallel [r_\pi + (\beta+1)(R_E \parallel R_L)]"><div class="eq" data-tex="Z_i = R_B \parallel [r_\pi + (\beta+1)(R_E \parallel R_L)]"></div></div>
+            </div>
+            <div class="text-muted-xs">High input impedance transformed by the emitter reflection rule.</div>
+          </div>
+        
+          <div class="mini-card">
+            <div class="mini-card-title">Clamper Capacitor Voltage</div>
+            <div class="eq-box code-box">
+              <div class="eq" data-tex="V_C = V_m - V_D"><div class="eq" data-tex="V_C = V_m - V_D"></div></div>
+            </div>
+            <div class="text-muted-xs">Steady-state charge stored across clamping capacitor.</div>
+          </div>
+        
+      </div>
+    </section>
+
+    <!-- Section 3: Circuits & Side-by-Side PDF Photo -->
+    <section id="circuits-comparison" class="mb-12">
+      <div class="lab-head">
+        <div class="lab-badge">Section 3 &middot; Side-by-Side Schematic Verification</div>
+        <h2>Built Circuit Schematic alongside Course PDF Slide Photo</h2>
+        <p class="lab-desc">Compare the live vector schematics against the exact circuit diagrams and figures published in the official 25ECE211 lecture slides and syllabus PDF.</p>
+      </div>
+
+      
+        <div class="side-by-side-card">
+          <div class="side-by-side-header">
+            <div>
+              <strong class="text-body-base">Common-Emitter Fixed Bias Stage</strong>
+              <div class="text-xs-muted-top">The fundamental BJT voltage amplifier topology providing large inverting voltage gain.</div>
+            </div>
+            <div class="flex-center-gap">
+              <span class="slide-tag">Slides 1, 4 & Fig. 5.25</span>
+              <a href="studio.html" class="btn sm secondary" onclick="if(window.launchCircuit) window.launchCircuit('bjt-ce-fixed');">Explore in Studio &rarr;</a>
+            </div>
+          </div>
+
+          <div class="side-by-side-grid">
+            <!-- Left: Built Circuit Schematic -->
+            <div class="pane-half">
+              <div class="pane-title">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M7 12h10"/><path d="M12 7v10"/></svg>
+                Built Schematic
+              </div>
+              <div id="builtSchematicContainer_0" class="schematic-preview-box">
+                <!-- Rendered dynamically or fallback SVG -->
+              </div>
+              <div class="mono-caption">
+                <strong>Key Equation:</strong> <span class="eq-inline" data-tex="A_v = -g_m(R_C \parallel R_L), \quad Z_i = R_B \parallel r_\pi"><span class="eq-inline" data-tex="A_v = -g_m(R_C \parallel R_L), \quad Z_i = R_B \parallel r_\pi"></span></span>
+              </div>
+            </div>
+
+            <!-- Right: Exact Course PDF Slide Photo -->
+            <div class="pane-half">
+              <div class="pane-title">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                Exact Photo From Course PDF (Slides 1, 4 & Fig. 5.25)
+              </div>
+              <div class="photo-preview-box">
+                <img src="images/pdf-slides/slide_01.webp" alt="Common-Emitter Fixed Bias Stage displayed in official lecture slides" class="slide-photo-img" width="1125" height="1500" loading="lazy" decoding="async">
+<p class="course-notice course-notice">Course material is shown for study purposes only and belongs to its respective owners. To request removal, write to <a href="mailto:karthikshenoy17@gmail.com" class="link-underline">karthikshenoy17@gmail.com</a>.</p>
+              </div>
+              <div class="pane-footer-meta">
+                <span>Click image to open high-resolution slide</span>
+                <span class="slide-tag">Slides 1, 4 & Fig. 5.25</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="side-by-side-card">
+          <div class="side-by-side-header">
+            <div>
+              <strong class="text-body-base">Common-Emitter Voltage-Divider Bias</strong>
+              <div class="text-xs-muted-top">Highly stabilized Q-point configuration utilizing R1-R2 divider and emitter degeneration.</div>
+            </div>
+            <div class="flex-center-gap">
+              <span class="slide-tag">Syllabus Page 9 & Fig. 5.151</span>
+              <a href="studio.html" class="btn sm secondary" onclick="if(window.launchCircuit) window.launchCircuit('bjt-ce-divider');">Explore in Studio &rarr;</a>
+            </div>
+          </div>
+
+          <div class="side-by-side-grid">
+            <!-- Left: Built Circuit Schematic -->
+            <div class="pane-half">
+              <div class="pane-title">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M7 12h10"/><path d="M12 7v10"/></svg>
+                Built Schematic
+              </div>
+              <div id="builtSchematicContainer_1" class="schematic-preview-box">
+                <!-- Rendered dynamically or fallback SVG -->
+              </div>
+              <div class="mono-caption">
+                <strong>Key Equation:</strong> <span class="eq-inline" data-tex="V_{TH} = V_{CC}\frac{R_2}{R_1+R_2}, \quad I_C \approx \frac{V_{TH}-V_{BE}}{R_E}"><span class="eq-inline" data-tex="V_{TH} = V_{CC}\frac{R_2}{R_1+R_2}, \quad I_C \approx \frac{V_{TH}-V_{BE}}{R_E}"></span></span>
+              </div>
+            </div>
+
+            <!-- Right: Exact Course PDF Slide Photo -->
+            <div class="pane-half">
+              <div class="pane-title">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                Exact Photo From Course PDF (Syllabus Page 9 & Fig. 5.151)
+              </div>
+              <div class="photo-preview-box">
+                <img src="images/syllabus-pages/page_09.webp" alt="Common-Emitter Voltage-Divider Bias displayed in official lecture slides" class="slide-photo-img" width="1241" height="1755" loading="lazy" decoding="async">
+<p class="course-notice course-notice">Course material is shown for study purposes only and belongs to its respective owners. To request removal, write to <a href="mailto:karthikshenoy17@gmail.com" class="link-underline">karthikshenoy17@gmail.com</a>.</p>
+              </div>
+              <div class="pane-footer-meta">
+                <span>Click image to open high-resolution slide</span>
+                <span class="slide-tag">Syllabus Page 9 & Fig. 5.151</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+    </section>
+
+    <!-- Section 4: Exam Numerical Questions -->
+    <section id="exam-questions" class="mb-12">
+      <div class="lab-head">
+        <div class="lab-badge">Section 4 &middot; Numerical Examination Questions</div>
+        <h2>Unit 1 Numerical Problems &amp; Step-by-Step Derivations</h2>
+        <p class="lab-desc">Actual exam, descriptive, and test problems from the 25ECE211 syllabus solved with full mathematical working, step-by-step reasoning, and final units.</p>
+      </div>
+
+      
+        <article class="question-block" id="u1_q1">
+          <div class="question-title-bar">
+            <h3 class="heading-lg-tight">Numerical Problem 1: BJT Voltage-Divider Small-Signal Parameters</h3>
+            <span class="slide-tag">Model Exam Paper & Slide 2 Example</span>
+          </div>
+
+          <div class="card-subtle-box">
+            <strong class="label-xs-upper">Problem Statement:</strong>
+            <p class="text-body-spaced">A BJT Common-Emitter amplifier with voltage-divider bias has <span class="eq-inline" data-tex="V_{CC} = 12\text{V}"></span>, <span class="eq-inline" data-tex="R_1 = 40\text{k}\Omega"></span>, <span class="eq-inline" data-tex="R_2 = 10\text{k}\Omega"></span>, <span class="eq-inline" data-tex="R_C = 3\text{k}\Omega"></span>, <span class="eq-inline" data-tex="R_E = 1\text{k}\Omega"></span>, <span class="eq-inline" data-tex="R_L = 10\text{k}\Omega"></span>, and <span class="eq-inline" data-tex="\beta = 100"></span>. Assume <span class="eq-inline" data-tex="V_{BE} = 0.7\text{V}"></span> and <span class="eq-inline" data-tex="V_T = 26\text{mV}"></span>. Determine the DC Q-point (<span class="eq-inline" data-tex="I_{CQ}, V_{CEQ}"></span>), small-signal parameters (<span class="eq-inline" data-tex="r_\pi, g_m"></span>), input resistance <span class="eq-inline" data-tex="Z_i"></span>, and voltage gain <span class="eq-inline" data-tex="A_v"></span>.</p>
+          </div>
+
+          <div class="eyebrow-subtle">Step-by-Step Mathematical Solution:</div>
+          <div class="step-list">
+            
+              <div class="step-item">
+                <div class="pane-header-row">
+                  <strong class="text-body-sm">Step 1: Thevenin Equivalent of Base Bias</strong>
+                  <span class="text-muted-xs">Step 1</span>
+                </div>
+                <p class="text-caption">Find equivalent open-circuit base voltage and Thevenin resistance.</p>
+                <div class="eq-box compact-row">
+                  <div class="eq" data-tex="V_{TH} = 12 \cdot \frac{10}{40+10} = 2.4\text{ V}, \quad R_{TH} = 40\text{k} \parallel 10\text{k} = 8\text{ k}\Omega"><div class="eq" data-tex="V_{TH} = 12 \cdot \frac{10}{40+10} = 2.4\text{ V}, \quad R_{TH} = 40\text{k} \parallel 10\text{k} = 8\text{ k}\Omega"></div></div>
+                </div>
+              </div>
+            
+              <div class="step-item">
+                <div class="pane-header-row">
+                  <strong class="text-body-sm">Step 2: Base & Collector DC Current</strong>
+                  <span class="text-muted-xs">Step 2</span>
+                </div>
+                <p class="text-caption">Apply KVL to base-emitter loop.</p>
+                <div class="eq-box compact-row">
+                  <div class="eq" data-tex="I_B = \frac{2.4 - 0.7}{8\text{k} + 101(1\text{k})} = \frac{1.7}{109\text{k}} = 15.6\,\mu\text{A}, \quad I_C = \beta I_B = 1.56\text{ mA}"><div class="eq" data-tex="I_B = \frac{2.4 - 0.7}{8\text{k} + 101(1\text{k})} = \frac{1.7}{109\text{k}} = 15.6\,\mu\text{A}, \quad I_C = \beta I_B = 1.56\text{ mA}"></div></div>
+                </div>
+              </div>
+            
+              <div class="step-item">
+                <div class="pane-header-row">
+                  <strong class="text-body-sm">Step 3: Collector-Emitter Voltage</strong>
+                  <span class="text-muted-xs">Step 3</span>
+                </div>
+                <p class="text-caption">Transistor is firmly in active mode (<span class="eq-inline" data-tex="V_{CE} > 0.3\text{V}"></span>).</p>
+                <div class="eq-box compact-row">
+                  <div class="eq" data-tex="V_{CE} = V_{CC} - I_C(R_C + R_E) = 12 - 1.56(3+1) = 5.76\text{ V}"><div class="eq" data-tex="V_{CE} = V_{CC} - I_C(R_C + R_E) = 12 - 1.56(3+1) = 5.76\text{ V}"></div></div>
+                </div>
+              </div>
+            
+              <div class="step-item">
+                <div class="pane-header-row">
+                  <strong class="text-body-sm">Step 4: Small-Signal Parameters</strong>
+                  <span class="text-muted-xs">Step 4</span>
+                </div>
+                <p class="text-caption">Compute dynamic transconductance and input resistance.</p>
+                <div class="eq-box compact-row">
+                  <div class="eq" data-tex="g_m = \frac{1.56\text{ mA}}{26\text{ mV}} = 60.0\text{ mS}, \quad r_\pi = \frac{100}{60\text{ mS}} = 1.67\text{ k}\Omega"><div class="eq" data-tex="g_m = \frac{1.56\text{ mA}}{26\text{ mV}} = 60.0\text{ mS}, \quad r_\pi = \frac{100}{60\text{ mS}} = 1.67\text{ k}\Omega"></div></div>
+                </div>
+              </div>
+            
+              <div class="step-item">
+                <div class="pane-header-row">
+                  <strong class="text-body-sm">Step 5: AC Input Resistance and Gain (with bypass CE)</strong>
+                  <span class="text-muted-xs">Step 5</span>
+                </div>
+                <p class="text-caption">Total voltage gain with fully bypassed emitter resistor.</p>
+                <div class="eq-box compact-row">
+                  <div class="eq" data-tex="Z_i = R_{TH} \parallel r_\pi = 8\text{k} \parallel 1.67\text{k} = 1.38\text{ k}\Omega, \quad A_v = -g_m (R_C \parallel R_L) = -60(3\text{k} \parallel 10\text{k}) = -138.5\text{ V/V}"><div class="eq" data-tex="Z_i = R_{TH} \parallel r_\pi = 8\text{k} \parallel 1.67\text{k} = 1.38\text{ k}\Omega, \quad A_v = -g_m (R_C \parallel R_L) = -60(3\text{k} \parallel 10\text{k}) = -138.5\text{ V/V}"></div></div>
+                </div>
+              </div>
+            
+          </div>
+        </article>
+      
+        <article class="question-block" id="u1_q2">
+          <div class="question-title-bar">
+            <h3 class="heading-lg-tight">Numerical Problem 2: Symmetrical Diode Biased Clipper</h3>
+            <span class="slide-tag">Laboratory Syllabus Unit I Question Bank</span>
+          </div>
+
+          <div class="card-subtle-box">
+            <strong class="label-xs-upper">Problem Statement:</strong>
+            <p class="text-body-spaced">An AC sinusoidal input <span class="eq-inline" data-tex="v_{in} = 15\sin(\omega t)\text{ V}"></span> is applied to a parallel diode clipper with <span class="eq-inline" data-tex="V_{R1} = +4\text{V}"></span> (cathode to bias) and <span class="eq-inline" data-tex="V_{R2} = +6\text{V}"></span> (anode to bias). Assuming silicon diodes with <span class="eq-inline" data-tex="V_D = 0.7\text{V}"></span> and series resistance <span class="eq-inline" data-tex="R = 1\text{k}\Omega"></span>, calculate the positive clipping level <span class="eq-inline" data-tex="V_{max}"></span>, negative clipping level <span class="eq-inline" data-tex="V_{min}"></span>, and sketch the transfer characteristic.</p>
+          </div>
+
+          <div class="eyebrow-subtle">Step-by-Step Mathematical Solution:</div>
+          <div class="step-list">
+            
+              <div class="step-item">
+                <div class="pane-header-row">
+                  <strong class="text-body-sm">Step 1: Positive Clipping Threshold</strong>
+                  <span class="text-muted-xs">Step 1</span>
+                </div>
+                <p class="text-caption">Diode 1 conducts when input exceeds <span class="eq-inline" data-tex="4.7\text{V}"></span>, clamping the output to <span class="eq-inline" data-tex="4.7\text{V}"></span>.</p>
+                <div class="eq-box compact-row">
+                  <div class="eq" data-tex="V_{max} = V_{R1} + V_D = 4.0 + 0.7 = 4.7\text{ V}"><div class="eq" data-tex="V_{max} = V_{R1} + V_D = 4.0 + 0.7 = 4.7\text{ V}"></div></div>
+                </div>
+              </div>
+            
+              <div class="step-item">
+                <div class="pane-header-row">
+                  <strong class="text-body-sm">Step 2: Negative Clipping Threshold</strong>
+                  <span class="text-muted-xs">Step 2</span>
+                </div>
+                <p class="text-caption">Diode 2 conducts when input drops below <span class="eq-inline" data-tex="-6.7\text{V}"></span>, holding output to <span class="eq-inline" data-tex="-6.7\text{V}"></span>.</p>
+                <div class="eq-box compact-row">
+                  <div class="eq" data-tex="V_{min} = -V_{R2} - V_D = -6.0 - 0.7 = -6.7\text{ V}"><div class="eq" data-tex="V_{min} = -V_{R2} - V_D = -6.0 - 0.7 = -6.7\text{ V}"></div></div>
+                </div>
+              </div>
+            
+              <div class="step-item">
+                <div class="pane-header-row">
+                  <strong class="text-body-sm">Step 3: Linear Transmission Region</strong>
+                  <span class="text-muted-xs">Step 3</span>
+                </div>
+                <p class="text-caption">Both diodes remain reverse-biased (OFF); zero current flows through R; output follows input.</p>
+                <div class="eq-box compact-row">
+                  <div class="eq" data-tex="-6.7\text{ V} < v_{in} < 4.7\text{ V} \implies v_o = v_{in}"><div class="eq" data-tex="-6.7\text{ V} < v_{in} < 4.7\text{ V} \implies v_o = v_{in}"></div></div>
+                </div>
+              </div>
+            
+          </div>
+        </article>
+      
+    </section>
+
+  </div>
+
+  
+    <div class="wrap unit-pagination-bar" style="display:flex; justify-content:flex-end; gap: var(--sp-3); margin-top: var(--sp-12); margin-bottom: var(--sp-8);">
+    <a class="btn sm secondary" href="index.html">Main Lab Directory</a>
+        <a class="btn sm primary" href="unit2.html">Unit 2 &rarr;</a>
+  </div>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="wrap">
+      <div>
+        <p class="footer-affiliation">
+          Independent student project by Karthik Shenoy. Strictly not affiliated with, endorsed by, or connected to NMAM Institute of Technology (NMAMIT) or Nitte (Deemed to be University).
+        </p>
+        <p class="footer-course-notice">
+          Course material is shown for study purposes only and belongs to its respective owners. To request removal, write to <a href="mailto:karthikshenoy17@gmail.com" class="link-underline">karthikshenoy17@gmail.com</a>.
+        </p>
+        <p class="footer-meta-line">
+          Contact: <a href="mailto:karthikshenoy17@gmail.com" class="link-underline">karthikshenoy17@gmail.com</a> &middot; Last updated: November 2026 &middot; <a href="about.html" class="link-underline">About &amp; credits</a> &middot; <a href="mailto:karthikshenoy17@gmail.com?subject=Error%20report:unit1.html" class="link-underline">Report an error</a> &middot; <span class="theme-toggle-wrap">Theme: <button type="button" id="themeToggleBtn" class="theme-toggle-btn" aria-label="Toggle dark or light theme">Dark</button></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+  
+
+  <!-- Scripts -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Render KaTeX equations
+      function renderEquations() {
+        if (!window.katex) return;
+        document.querySelectorAll('.eq[data-tex]').forEach(el => {
+          try { katex.render(el.getAttribute('data-tex'), el, { displayMode: true, throwOnError: false }); } catch(e) {}
+        });
+        document.querySelectorAll('.eq-inline[data-tex]').forEach(el => {
+          try { katex.render(el.getAttribute('data-tex'), el, { displayMode: false, throwOnError: false }); } catch(e) {}
+        });
+      }
+      renderEquations();
+      window.addEventListener('load', renderEquations);
+
+      // 2. Render Built Schematics into containers
+      
+        const box_0 = document.getElementById('builtSchematicContainer_0');
+        if (box_0 && window.getCircuitSvg) {
+          box_0.innerHTML = window.getCircuitSvg('bjt-ce-fixed', null, null, 380, 240);
+        }
+      
+        const box_1 = document.getElementById('builtSchematicContainer_1');
+        if (box_1 && window.getCircuitSvg) {
+          box_1.innerHTML = window.getCircuitSvg('bjt-ce-divider', null, null, 380, 240);
+        }
+      
+
+      
+      // 4. Nav Dropdown keyboard accessibility
+      const dropdowns = document.querySelectorAll('.nav-dropdown');
+      dropdowns.forEach(dd => {
+        const btn = dd.querySelector('.nav-dropdown-btn');
+        const menu = dd.querySelector('.nav-dropdown-menu');
+        if (!btn || !menu) return;
+
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const open = dd.classList.toggle('open');
+          btn.setAttribute('aria-expanded', String(open));
+          if (open) {
+            const first = menu.querySelector('a');
+            if (first) first.focus();
+          }
+        });
+
+        btn.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            dd.classList.add('open');
+            btn.setAttribute('aria-expanded', 'true');
+            const first = menu.querySelector('a');
+            if (first) first.focus();
+          }
+        });
+
+        menu.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            dd.classList.remove('open');
+            btn.setAttribute('aria-expanded', 'false');
+            btn.focus();
+          }
+        });
+      });
+
+      document.addEventListener('click', (e) => {
+        dropdowns.forEach(dd => {
+          if (!dd.contains(e.target)) {
+            dd.classList.remove('open');
+            const btn = dd.querySelector('.nav-dropdown-btn');
+            if (btn) btn.setAttribute('aria-expanded', 'false');
+          }
+        });
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          dropdowns.forEach(dd => {
+            if (dd.classList.contains('open')) {
+              dd.classList.remove('open');
+              const btn = dd.querySelector('.nav-dropdown-btn');
+              if (btn) {
+                btn.setAttribute('aria-expanded', 'false');
+                btn.focus();
+              }
+            }
+          });
+        }
+      });
+
+      // 3. Mobile Hamburger
+      const hamburger = document.getElementById('navHamburger');
+      const drawer = document.getElementById('navDrawer');
+      if (hamburger && drawer) {
+        hamburger.addEventListener('click', () => {
+          const open = drawer.classList.toggle('open');
+          hamburger.setAttribute('aria-expanded', String(open));
+        });
+        drawer.querySelectorAll('a').forEach(a => {
+          a.addEventListener('click', () => {
+            drawer.classList.remove('open');
+            hamburger.setAttribute('aria-expanded', 'false');
+          });
+        });
+      }
+    });
+  </script>
+
+  <script src="vendor/three.min.js"></script>
+  <script src="vendor/OrbitControls.js"></script>
+  <script src="js/three/bjt-3d.js"></script>
+  <script src="js/units/unit1-diode-bjt.js"></script>
+  <script src="js/circuits-data.js"></script>
+  <script src="js/circuit-studio.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
